@@ -1,6 +1,6 @@
 <p align="center">
   <img src="images/Image1.png" width="800">
-</p>
+  </p>
 
 # 🎮 Mini Game Hub
 
@@ -14,6 +14,9 @@ This project demonstrates clean system design, user authentication, and interact
 Mini Game Hub is designed as a lightweight gaming platform where two users must authenticate before accessing the game engine. The system separates concerns across multiple components, ensuring maintainability and clarity.
 
 ---
+<p align="center">
+  <img src="images/Private GIF.gif" width="800">
+</p>
 
 ## ✨ Features
 
@@ -72,7 +75,7 @@ Mini-Game-Hub/
 ### 1. Clone the repository
 
 ```
-git clone <your-repo-link>
+git clone https://github.com/pravarkumar/mini-game-hub.git
 cd Mini-Game-Hub
 ```
 
@@ -147,3 +150,5 @@ This project is not just a game — it is a demonstration of **system design, se
 So plz enjoy :)
 
 ---
+
+
