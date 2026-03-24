@@ -1,27 +1,111 @@
 #!/bin/bash
-echo "Player 1:"
-read u1 #Info of Player 1 
 
-echo "Player 2:"
-read u2 #Info of PLayer 2 
-python3 game.py
 
-authenticated=0
+touch users.tsv
 
-while [ $authenticated -eq 0 ]
-do
-    echo "Enter username:"
-    read username
 
-    echo "Enter password:"
-    read password
+registered(){
+	grep -q "^$1:" users.tsv
+}
 
-    python3 auth.py "$username" "$password"
 
-    if [ $? -eq 0 ]; then
-        authenticated=1
-    else
-        echo "Try again"
-    fi
-done
+
+
+	while true;
+	do
+		echo -n "Enter Username of Player 1:"
+		read username
+		echo -n "Enter Password:"
+		read -s password
+		echo
+		if registered "$username"
+		then
+			hash_pass=$(echo -n "$password" | sha256sum | cut -d " " -f1)
+			stored_pass=$(grep "^$username:" users.tsv|cut -d ":" -f2)
+			if [ "$hash_pass" == "$stored_pass" ]
+			then
+				echo Login Successful!
+				user1="$username"
+				break
+			else
+				echo Wrong username or password! Please try again.
+			fi
+		else
+			echo "Username does not exist. Do you want to register?(y/n)"
+			read s
+			if [ "$s" == "y" ]
+			then
+				hash_pass1=$(echo -n "$password" | sha256sum | cut -d " " -f1)
+				echo "$username":"$hash_pass1">>users.tsv
+			        echo "Registration Successful!"
+				user1="$username"
+				break
+			elif [ "$s" == "n" ]
+			then continue
+
+
+			else echo "Write appropriate character."
+			fi
+		fi
+	done
+
+
+
+	while true;
+        do
+                echo -n "Enter Username of Player 2:"
+                read username
+                echo -n "Enter Password:"
+                read -s password
+                echo
+
+
+		if [ "$username" == "$user1" ]
+		then
+			echo "Users must be different, Please try again."
+			continue
+		fi
+
+                if registered "$username"
+                then
+                        hash_pass=$(echo -n "$password" | sha256sum | cut -d " " -f1)
+                        stored_pass=$(grep "^$username:" users.tsv|cut -d ":" -f2)
+                        if [ "$hash_pass" == "$stored_pass" ]
+                        then
+                                echo Login Successful!
+                                user2="$username"
+                                break
+                        else
+                                echo Wrong username or password! Please try again.
+                        fi
+                else
+                        echo "Username does not exist. Do you want to register?(y/n)"
+                        read s
+                        if [ "$s" == "y" ]
+                        then
+                                hash_pass1=$(echo -n "$password" | sha256sum | cut -d " " -f1)
+                                echo "$username":"$hash_pass1">>users.tsv
+                                echo "Registration Successful!"
+                                user2="$username"
+                                break
+                        elif [ "$s" == "n" ]
+                        then continue
+
+
+                        else echo "Please write appropriate character."
+                        fi
+                fi
+        done
+	
+
+	
+
+
+	echo "Starting the game for $user1 and $user2."
+	# python3 game.py "$user1" "$user2"
+
+	
+
+			
+
 
