@@ -13,9 +13,9 @@ registered(){
 
 	while true;
 	do
-		echo -n "Enter Username of Player 1:"
+		printf "\033[1;33mEnter Username of Player 1:\033[0m"
 		read username
-		echo -n "Enter Password:"
+		echo -ne "\033[1;35mEnter Password\033[0m"
 		read -s password
 		echo
 		if registered "$username"
@@ -24,27 +24,27 @@ registered(){
 			stored_pass=$(grep "^$username:" users.tsv|cut -d ":" -f2)
 			if [ "$hash_pass" == "$stored_pass" ]
 			then
-				echo Login Successful!
+				 echo -e "\033[1;32mLogin Successful!\033[0m"
 				user1="$username"
 				break
 			else
-				echo Wrong username or password! Please try again.
+				echo -e "\033[1;31mWrong username or password! Please try again.\033[0m"
 			fi
 		else
-			echo "Username does not exist. Do you want to register?(y/n)"
+			echo -e "\033[1;31mUsername does not exist. Do you want to register?(y/n)\033[0m"
 			read s
 			if [ "$s" == "y" ]
 			then
 				hash_pass1=$(echo -n "$password" | sha256sum | cut -d " " -f1)
 				echo "$username":"$hash_pass1">>users.tsv
-			        echo "Registration Successful!"
+			         echo -e "\033[1;32mRegistration Successful!!\033[0m"
 				user1="$username"
 				break
 			elif [ "$s" == "n" ]
 			then continue
 
 
-			else echo "Write appropriate character."
+			 echo -e "\033[1;32mRegistration Successful!!\033[0m"
 			fi
 		fi
 	done
@@ -53,16 +53,16 @@ registered(){
 
 	while true;
         do
-                echo -n "Enter Username of Player 2:"
+               printf "\033[1;33mEnter Username of Player 2:\033[0m"
                 read username
-                echo -n "Enter Password:"
+                  echo -ne "\033[1;35mEnter Password\033[0m"
                 read -s password
                 echo
 
 
 		if [ "$username" == "$user1" ]
 		then
-			echo "Users must be different, Please try again."
+			 echo -e "\033[1;31mUsers must be different, Please try again.\033[0m"
 			continue
 		fi
 
@@ -72,27 +72,27 @@ registered(){
                         stored_pass=$(grep "^$username:" users.tsv|cut -d ":" -f2)
                         if [ "$hash_pass" == "$stored_pass" ]
                         then
-                                echo Login Successful!
+                                echo -e "\033[1;32mLogin Successful!\033[0m"
                                 user2="$username"
                                 break
                         else
-                                echo Wrong username or password! Please try again.
+				 echo -e "\033[1;31mWrong username or password! Please try again.\033[0m"
                         fi
                 else
-                        echo "Username does not exist. Do you want to register?(y/n)"
+                        echo -e "\033[1;31mUsername does not exist. Do you want to register?(y/n)\033[0m"
                         read s
                         if [ "$s" == "y" ]
                         then
                                 hash_pass1=$(echo -n "$password" | sha256sum | cut -d " " -f1)
                                 echo "$username":"$hash_pass1">>users.tsv
-                                echo "Registration Successful!"
+                                echo -e "\033[1;32mRegistration Successful!!\033[0m"
                                 user2="$username"
                                 break
                         elif [ "$s" == "n" ]
                         then continue
 
 
-                        else echo "Please write appropriate character."
+                        else echo -e "\033[1;31mPlease write appropriate character.\033[0m"
                         fi
                 fi
         done
@@ -100,11 +100,11 @@ registered(){
 
 	
 
-
-	echo "Starting the game for $user1 and $user2."
+	echo -e "\033[1;36mStarting the game for $user1 and $user2.\033[0m"
+	echo 
 	# python3 game.py "$user1" "$user2"
-
-	
+	echo -e "\033[1;32mWelcome to Mini Game Hub!\033[0m"
+		
 
 			
 
