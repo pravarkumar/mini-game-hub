@@ -1,8 +1,14 @@
 #!/bin/bash
 
-
+clear
 touch users.tsv
-
+echo "    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+echo "    .                                                             ."
+echo -e "    .               \033[1;32m M I N I   G A M E   H U B \033[0m                   ."
+echo "    .                                                             ."
+echo "    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+echo
+echo
 
 registered(){
 	grep -q "^$1:" users.tsv
@@ -101,9 +107,11 @@ registered(){
 	
 
 	echo -e "\033[1;36mStarting the game for $user1 and $user2.\033[0m"
-	echo 
-	# python3 game.py "$user1" "$user2"
+	echo
 	echo -e "\033[1;32mWelcome to Mini Game Hub!\033[0m"
+	echo 
+	python3 game.py "$user1" "$user2"
+	
 		
 
 			
