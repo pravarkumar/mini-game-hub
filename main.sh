@@ -1,15 +1,9 @@
 #!/bin/bash
 
-clear
-touch users.tsv
-echo "    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
-echo "    .                                                             ."
-echo -e "    .               \033[1;32m M I N I   G A M E   H U B \033[0m                   ."
-echo "    .                                                             ."
-echo "    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
-echo
-echo
 
+touch users.tsv
+
+c=0
 registered(){
 	grep -q "^$1:" users.tsv
 }
@@ -19,101 +13,170 @@ registered(){
 
 	while true;
 	do
-		printf "\033[1;33mEnter Username of Player 1:\033[0m"
-		read username
-		echo -ne "\033[1;35mEnter Password\033[0m"
-		read -s password
-		echo
+		while true
+		do
+			echo -n "Enter Username of Player 1: "
+			read username
+
+			if [[ "$username" =~ ^[0-9a-zA-Z_]+$ ]]
+			then break
+			else 
+				echo "Invalid username only letters, Numbers, Underscore are allowed."
+			fi
+		done
+
 		if registered "$username"
-		then
-			hash_pass=$(echo -n "$password" | sha256sum | cut -d " " -f1)
-			stored_pass=$(grep "^$username:" users.tsv|cut -d ":" -f2)
+                then
+			echo -n "Enter Password: "
+			read -s password
+			echo
+                        hash_pass=$(echo -n "$password" | sha256sum | cut -d " " -f1)
+                        stored_pass=$(grep "^$username:" users.tsv|cut -d ":" -f2)
+                        
 			if [ "$hash_pass" == "$stored_pass" ]
-			then
-				 echo -e "\033[1;32mLogin Successful!\033[0m"
-				user1="$username"
-				break
-			else
-				echo -e "\033[1;31mWrong username or password! Please try again.\033[0m"
-			fi
-		else
-			echo -e "\033[1;31mUsername does not exist. Do you want to register?(y/n)\033[0m"
+                        then
+                                echo Login Successful for "$username"!
+                                user1="$username"
+                                break
+                        else
+                                echo Wrong username or password! Please try again.
+                        fi
+                else
+                        echo "Username does not exist. Do you want to register with this username?(y/n)"
+			while true
+			do
 			read s
-			if [ "$s" == "y" ]
-			then
-				hash_pass1=$(echo -n "$password" | sha256sum | cut -d " " -f1)
-				echo "$username":"$hash_pass1">>users.tsv
-			         echo -e "\033[1;32mRegistration Successful!!\033[0m"
-				user1="$username"
+
+                        if [[ "$s" == "y" || "$s" == "Y" ]]
+                        then
+				while true
+				do
+					echo -n "Create Password: "
+					read -s createpass
+					echo
+					echo -n "Confirm Password: "
+					read -s confirmpass
+					echo
+					if [[ "$createpass" == "$confirmpass" ]]
+					then
+						break
+					else 
+						echo "Passwords do not match. Please try again."
+					fi
+				done
+
+
+				
+                                hash_pass1=$(echo -n "$createpass" | sha256sum | cut -d " " -f1)
+                                echo "$username":"$hash_pass1">>users.tsv
+                                echo "Registration Successful for "$username"!"
+                                user1="$username"
+				c=1
+                                break
+                        elif [[ "$s" == "n" || "$s" == "N" ]]
+                        then
+				c=2
 				break
-			elif [ "$s" == "n" ]
-			then continue
+                        else echo "Write appropriate character."
+			
+                        fi
+		done
+		if [[ $c -eq 1 ]]
+		then break
 
+		elif [[ $c -eq 2 ]] 
+		then continue
+		fi	
 
-			 echo -e "\033[1;32mRegistration Successful!!\033[0m"
-			fi
-		fi
+                fi		
 	done
 
-
+c=0
 
 	while true;
         do
-               printf "\033[1;33mEnter Username of Player 2:\033[0m"
-                read username
-                  echo -ne "\033[1;35mEnter Password\033[0m"
-                read -s password
-                echo
+                while true
+                do
+			echo -n "Enter Username of Player 2: "
+			read username2
+			if [[ "$username2" == "$user1" ]]; then
+    			echo "Player 2 must be different from Player 1"
+    			continue
+			fi
 
+                        if [[ "$username2" =~ ^[0-9a-zA-Z_]+$ ]]
+                        then break
+                        else
+                                echo "Invalid username only letters, Numbers, Underscore are allowed."
+                        fi
+                done
 
-		if [ "$username" == "$user1" ]
-		then
-			 echo -e "\033[1;31mUsers must be different, Please try again.\033[0m"
-			continue
-		fi
-
-                if registered "$username"
+                if registered "$username2"
                 then
-                        hash_pass=$(echo -n "$password" | sha256sum | cut -d " " -f1)
-                        stored_pass=$(grep "^$username:" users.tsv|cut -d ":" -f2)
-                        if [ "$hash_pass" == "$stored_pass" ]
+                        echo -n "Enter Password: "
+                        read -s password2
+                        echo
+                        hash_pass2=$(echo -n "$password2" | sha256sum | cut -d " " -f1)
+                        stored_pass2=$(grep "^$username2:" users.tsv|cut -d ":" -f2)
+
+                        if [ "$hash_pass2" == "$stored_pass2" ]
                         then
-                                echo -e "\033[1;32mLogin Successful!\033[0m"
-                                user2="$username"
+                                echo "Login Successful for "$username2"!"
+                                user2="$username2"
                                 break
                         else
-				 echo -e "\033[1;31mWrong username or password! Please try again.\033[0m"
+                                echo Wrong username or password! Please try again.
                         fi
                 else
-                        echo -e "\033[1;31mUsername does not exist. Do you want to register?(y/n)\033[0m"
-                        read s
-                        if [ "$s" == "y" ]
+                        echo "Username does not exist. Do you want to register with this username?(y/n)"
+                        while true
+                        do
+			read s
+
+                        if [[ "$s" == "y" || "$s" == "Y" ]]
                         then
-                                hash_pass1=$(echo -n "$password" | sha256sum | cut -d " " -f1)
-                                echo "$username":"$hash_pass1">>users.tsv
-                                echo -e "\033[1;32mRegistration Successful!!\033[0m"
-                                user2="$username"
+                                while true
+                                do
+                                        echo -n "Create Password: "
+                                        read -s createpass2
+                                        echo
+                                        echo -n "Confirm Password: "
+                                        read -s confirmpass2
+                                        echo
+                                        if [[ "$createpass2" == "$confirmpass2" ]]
+                                        then
+                                                break
+                                        else
+                                                echo "Passwords do not match. Please try again."
+                                        fi
+                                done
+
+
+
+                                hash_pass2=$(echo -n "$createpass2" | sha256sum | cut -d " " -f1)
+                                echo "$username2":"$hash_pass2">>users.tsv
+                                echo "Registration Successful for "$username2"!"
+                                user2="$username2"
+                                c=1
                                 break
-                        elif [ "$s" == "n" ]
-                        then continue
+                        elif [[ "$s" == "n" || "$s" == "N" ]]
+                        then
+                                c=2
+                                break
+                        else echo "Write appropriate character."
 
-
-                        else echo -e "\033[1;31mPlease write appropriate character.\033[0m"
                         fi
+                done
+                if [[ $c -eq 1 ]]
+                then break
+
+                elif [[ $c -eq 2 ]]
+                then continue
+                fi
+
                 fi
         done
-	
 
-	
+	echo "Starting game for "$user1" and "$user2""
 
-	echo -e "\033[1;36mStarting the game for $user1 and $user2.\033[0m"
-	echo
-	echo -e "\033[1;32mWelcome to Mini Game Hub!\033[0m"
-	echo 
-	python3 game.py "$user1" "$user2"
-	
-		
-
-			
-
-
+	#python3 game.py
