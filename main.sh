@@ -1,7 +1,45 @@
 #!/bin/bash
 
-
+clear
 touch users.tsv
+clear
+touch users.tsv
+
+GREEN="\033[1;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[1;34m"
+RED="\033[1;31m"
+RESET="\033[0m"
+
+echo -e "$GREEN"
+echo "+------------------------------------------------------+"
+echo "|                                                      |"
+echo "|   ███╗   ███╗██╗███╗   ██╗██╗                        |"
+echo "|   ████╗ ████║██║████╗  ██║██║                        |"
+echo "|   ██╔████╔██║██║██╔██╗ ██║██║                        |"
+echo "|   ██║╚██╔╝██║██║██║╚██╗██║██║                        |"
+echo "|   ██║ ╚═╝ ██║██║██║ ╚████║██║                        |"
+echo "|   ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝                        |"
+echo "|                                                      |"
+echo "|    ██████╗  █████╗ ███╗   ███╗███████╗               |"
+echo "|   ██╔════╝ ██╔══██╗████╗ ████║██╔════╝               |"
+echo "|   ██║  ███╗███████║██╔████╔██║█████╗                 |"
+echo "|   ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝                 |"
+echo "|   ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗               |"
+echo "|    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝               |"
+echo "|                                                      |"
+echo "|      ██╗  ██╗██╗   ██╗██████╗                        |"
+echo "|      ██║  ██║██║   ██║██╔══██╗                       |"
+echo "|      ███████║██║   ██║██████╔╝                       |"
+echo "|      ██╔══██║██║   ██║██╔══██╗                       |"
+echo "|      ██║  ██║╚██████╔╝██████╔╝                       |"
+echo "|      ╚═╝  ╚═╝ ╚═════╝ ╚═════╝                        |"
+echo "|                                                      |"
+echo "|                                                      |"
+echo "|                                                      |"
+echo "+------------------------------------------------------+"
+echo -e "$RESET"
+echo
 
 c=0
 registered(){
@@ -14,20 +52,20 @@ registered(){
 	while true;
 	do
 		while true
-		do
-			echo -n "Enter Username of Player 1: "
+		do	echo -e "$BLUE=========== 🎮 PLAYER 1 🎮 ===========$RESET"
+			printf "${YELLOW}👤 Username: ${RESET}"
 			read username
 
 			if [[ "$username" =~ ^[0-9a-zA-Z_]+$ ]]
 			then break
 			else 
-				echo "Invalid username only letters, Numbers, Underscore are allowed."
+				echo -e "${RED}Invalid username only letters, Numbers, Underscore are allowed!!${RESET}"
 			fi
 		done
 
 		if registered "$username"
                 then
-			echo -n "Enter Password: "
+			echo -ne "${YELLOW}🔒 Enter Password: ${RESET}"
 			read -s password
 			echo
                         hash_pass=$(echo -n "$password" | sha256sum | cut -d " " -f1)
@@ -35,14 +73,14 @@ registered(){
                         
 			if [ "$hash_pass" == "$stored_pass" ]
                         then
-                                echo Login Successful for "$username"!
+                                echo -e "${GREEN}✅ Login Successful for "$username"!${RESET}"
                                 user1="$username"
                                 break
                         else
-                                echo Wrong username or password! Please try again.
+                                echo -e "${RED}❌ Wrong username or password!${RESET}"
                         fi
                 else
-                        echo "Username does not exist. Do you want to register with this username?(y/n)"
+                               echo -e "${RED}❌ Username does not exist. Do you want to register with this username?(y/n)${RESET}"
 			while true
 			do
 			read s
@@ -51,17 +89,17 @@ registered(){
                         then
 				while true
 				do
-					echo -n "Create Password: "
+					echo -ne "${YELLOW}🔒 Create Password: ${RESET}"
 					read -s createpass
 					echo
-					echo -n "Confirm Password: "
+					echo -ne "${YELLOW}🔒 Confirm Password: ${RESET}"
 					read -s confirmpass
 					echo
 					if [[ "$createpass" == "$confirmpass" ]]
 					then
 						break
 					else 
-						echo "Passwords do not match. Please try again."
+						 echo -e "${RED}❌ Passwords don't match. Plz try again.${RESET}"
 					fi
 				done
 
@@ -69,7 +107,7 @@ registered(){
 				
                                 hash_pass1=$(echo -n "$createpass" | sha256sum | cut -d " " -f1)
                                 echo "$username":"$hash_pass1">>users.tsv
-                                echo "Registration Successful for "$username"!"
+                                echo -e "${GREEN}✅ Registration Successful for "$username"!${RESET}"
                                 user1="$username"
 				c=1
                                 break
@@ -77,7 +115,7 @@ registered(){
                         then
 				c=2
 				break
-                        else echo "Write appropriate character."
+                        else  echo -e "${RED}❌ Write appropriate characters please.${RESET}"
 			
                         fi
 		done
@@ -97,17 +135,19 @@ c=0
         do
                 while true
                 do
-			echo -n "Enter Username of Player 2: "
+			echo -e "$BLUE=========== 🎮 PLAYER 2 🎮 ===========$RESET"
+			printf "${YELLOW}👤 Username: ${RESET}"
+
 			read username2
 			if [[ "$username2" == "$user1" ]]; then
-    			echo "Player 2 must be different from Player 1"
+    			echo -e "${RED}❌ Users must be different!${RESET}"
     			continue
 			fi
 
                         if [[ "$username2" =~ ^[0-9a-zA-Z_]+$ ]]
                         then break
                         else
-                                echo "Invalid username only letters, Numbers, Underscore are allowed."
+				 echo -e "${RED}❌ "Invalid username only letters, Numbers, Underscore are allowed."${RESET}"
                         fi
                 done
 
@@ -121,14 +161,15 @@ c=0
 
                         if [ "$hash_pass2" == "$stored_pass2" ]
                         then
-                                echo "Login Successful for "$username2"!"
+				            echo -e "${GREEN}✅ Login Successful for "$username2"!${RESET}"
+                           
                                 user2="$username2"
                                 break
                         else
-                                echo Wrong username or password! Please try again.
+                                 echo -e "${RED}❌ Wrong username or password! Please try again.${RESET}"
                         fi
                 else
-                        echo "Username does not exist. Do you want to register with this username?(y/n)"
+			echo -e "${RED}❌ Username does not exist. Do you want to register with this username?(y/n)${RESET}"
                         while true
                         do
 			read s
@@ -137,17 +178,17 @@ c=0
                         then
                                 while true
                                 do
-                                        echo -n "Create Password: "
+                                          echo -ne "${YELLOW}🔒 Create Password: ${RESET}"
                                         read -s createpass2
                                         echo
-                                        echo -n "Confirm Password: "
+                                              echo -ne "${YELLOW}🔒 Confirm Password: ${RESET}"
                                         read -s confirmpass2
                                         echo
                                         if [[ "$createpass2" == "$confirmpass2" ]]
                                         then
                                                 break
                                         else
-                                                echo "Passwords do not match. Please try again."
+                                                              echo -e "${RED}❌ Passwords don't match. Plz try again.${RESET}"
                                         fi
                                 done
 
@@ -155,7 +196,7 @@ c=0
 
                                 hash_pass2=$(echo -n "$createpass2" | sha256sum | cut -d " " -f1)
                                 echo "$username2":"$hash_pass2">>users.tsv
-                                echo "Registration Successful for "$username2"!"
+                                echo -e "${GREEN}✅ Login Successful for "$username2"!${RESET}"
                                 user2="$username2"
                                 c=1
                                 break
@@ -163,7 +204,7 @@ c=0
                         then
                                 c=2
                                 break
-                        else echo "Write appropriate character."
+                             else  echo -e "${RED}❌ Write appropriate characters please.${RESET}"
 
                         fi
                 done
@@ -177,6 +218,19 @@ c=0
                 fi
         done
 
-	echo "Starting game for "$user1" and "$user2""
+	echo -e "$BLUE=========== ⚔️🛡️✨ STARTING GAME ⚔️🛡️✨ ===========$RESET"
 
-	#python3 game.py
+echo
+echo -e "${GREEN}💻 Player 1: $username${RESET}"
+echo -e "${GREEN}💻 Player 2: $username2${RESET}"
+
+echo
+echo -ne "${YELLOW}⏳ Loading: ["
+for i in {1..20}; do
+    echo -ne "█"
+    sleep 0.15
+done
+echo -e "]${RESET}"
+
+echo
+python3 game.py "$username" "$username2"
