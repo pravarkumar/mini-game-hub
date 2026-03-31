@@ -216,12 +216,12 @@ Retry
 <tr>
 
 <td align="center">
-<img src="https://img.icons8.com/fluency/96/male.png"/><br>
+<img src="download.jpeg"/><br>
 Player 1
 </td>
 
 <td align="center">
-<img src="https://img.icons8.com/fluency/96/female.png"/><br>
+<img src="download.png"/><br>
 Player 2
 </td>
 
