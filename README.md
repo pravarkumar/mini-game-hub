@@ -1,154 +1,404 @@
 <p align="center">
   <img src="images/Image1.png" width="800">
-  </p>
+</p>
 
 # 🎮 Mini Game Hub
 
-A modular, command-line driven mini game platform built using **Bash** and **Python (Pygame)**.
+A modular, command-line driven mini game platform built using **Bash** and **Python (Pygame)**.  
 This project demonstrates clean system design, user authentication, and interactive gameplay in a structured and scalable way.
 
 ---
 
 ## 🚀 Overview
 
-Mini Game Hub is designed as a lightweight gaming platform where two users must authenticate before accessing the game engine. The system separates concerns across multiple components, ensuring maintainability and clarity.
+<table align="center">
+<tr>
+<td align="center">🎯</td>
+<td><b>Purpose</b></td>
+<td>Lightweight gaming platform with structured architecture</td>
+</tr>
+
+<tr>
+<td align="center">👥</td>
+<td><b>Users</b></td>
+<td>Two-player authentication before gameplay</td>
+</tr>
+
+<tr>
+<td align="center">🧠</td>
+<td><b>Concept</b></td>
+<td>Separation of concerns for clarity & maintainability</td>
+</tr>
+
+<tr>
+<td align="center">⚙️</td>
+<td><b>System Design</b></td>
+<td>Modular + scalable structure</td>
+</tr>
+</table>
 
 ---
+
 <p align="center">
   <img src="images/Private GIF.gif" width="800">
 </p>
 
 ## ✨ Features
 
-* 🔐 **User Authentication System**
+<table align="center">
+<tr>
+<th>🎮 Feature</th>
+<th>💡 Description</th>
+<th>🖼️ Visual</th>
+</tr>
 
-  * Login / Signup functionality
-  * Secure password storage using **SHA-256 hashing**
-  * No plaintext password storage
+<tr>
+<td>🔐 Authentication</td>
+<td>Login / Signup system with secure access</td>
+<td><img src="images/auth.png" width="120"></td>
+</tr>
 
-* 👥 **Two-Player System**
+<tr>
+<td>🔑 SHA-256 Security</td>
+<td>Passwords hashed (no plaintext storage)</td>
+<td><img src="images/security.png" width="120"></td>
+</tr>
 
-  * Ensures both players are authenticated before gameplay
-  * Prevents duplicate or invalid users
+<tr>
+<td>👥 Two Players</td>
+<td>Both users must login before game starts</td>
+<td><img src="images/users.png" width="120"></td>
+</tr>
 
-* 🧩 **Modular Architecture**
+<tr>
+<td>🧩 Modular Design</td>
+<td>Separate files for logic, auth & game</td>
+<td><img src="images/modules.png" width="120"></td>
+</tr>
 
-  * Clear separation between control flow, authentication, and game logic
-  * Easy to extend and maintain
+<tr>
+<td>🎮 Game Engine</td>
+<td>Pygame-based interactive UI</td>
+<td><img src="images/game.png" width="120"></td>
+</tr>
 
-* 🎮 **Game Engine (Pygame)**
+<tr>
+<td>🔁 Control Flow</td>
+<td>Validation loops + error handling</td>
+<td><img src="images/flow.png" width="120"></td>
+</tr>
 
-  * Interactive window-based gameplay
-  * Scalable for adding multiple games
-
-* 🔁 **Robust Control Flow**
-
-  * Input validation loops
-  * Error handling for incorrect credentials
+</table>
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Bash** → User interaction & control flow
-* **Python** → Core logic & authentication
-* **Pygame** → Game engine & UI
+<table align="center">
+<tr>
+<th>⚙️ Technology</th>
+<th>💻 Role</th>
+<th>🖼️ Visual</th>
+</tr>
+
+<tr>
+<td>🐚 Bash</td>
+<td>User interaction & control flow</td>
+<td><img src="images/bash.png" width="100"></td>
+</tr>
+
+<tr>
+<td>🐍 Python</td>
+<td>Core logic & authentication</td>
+<td><img src="images/python.png" width="100"></td>
+</tr>
+
+<tr>
+<td>🎮 Pygame</td>
+<td>Game engine & UI rendering</td>
+<td><img src="images/pygame.png" width="100"></td>
+</tr>
+
+</table>
 
 ---
 
 ## 📁 Project Structure
 
-```
-Mini-Game-Hub/
-│
-├── main.sh        # Entry point (handles user input & flow)
-├── auth.py        # Authentication logic (login/signup, hashing)
-├── game.py        # Game engine (Pygame)
-├── users.tsv      # User database (hashed passwords)
-└── README.md
-```
+<table align="center">
+<tr>
+<th>📂 File</th>
+<th>📌 Purpose</th>
+<th>🖼️</th>
+</tr>
+
+<tr>
+<td><code>main.sh</code></td>
+<td>Entry point (handles user flow)</td>
+<td>🚀</td>
+</tr>
+
+<tr>
+<td><code>auth.py</code></td>
+<td>Login/signup + hashing</td>
+<td>🔐</td>
+</tr>
+
+<tr>
+<td><code>game.py</code></td>
+<td>Pygame engine</td>
+<td>🎮</td>
+</tr>
+
+<tr>
+<td><code>users.tsv</code></td>
+<td>User database</td>
+<td>📄</td>
+</tr>
+
+<tr>
+<td><code>README.md</code></td>
+<td>Documentation</td>
+<td>📘</td>
+</tr>
+
+</table>
 
 ---
 
 ## ▶️ How to Run
 
-### 1. Clone the repository
+<table align="center">
+<tr>
+<th>⚡ Step</th>
+<th>💻 Command</th>
+<th>🖼️</th>
+</tr>
 
-```
-git clone https://github.com/pravarkumar/mini-game-hub.git
-cd Mini-Game-Hub
-```
+<tr>
+<td>1️⃣ Clone Repo</td>
+<td><code>git clone https://github.com/pravarkumar/mini-game-hub.git</code></td>
+<td>📥</td>
+</tr>
 
-### 2. Make script executable
+<tr>
+<td>2️⃣ Enter Folder</td>
+<td><code>cd Mini-Game-Hub</code></td>
+<td>📂</td>
+</tr>
 
-```
-chmod +x main.sh
-```
+<tr>
+<td>3️⃣ Make Executable</td>
+<td><code>chmod +x main.sh</code></td>
+<td>⚙️</td>
+</tr>
 
-### 3. Run the project
+<tr>
+<td>4️⃣ Run Project</td>
+<td><code>bash main.sh</code></td>
+<td>🚀</td>
+</tr>
 
-```
-bash main.sh
-```
+</table>
 
 ---
 
 ## 🔐 Authentication Flow
 
-1. User selects login or signup
-2. Username and password are entered
-3. Password is hashed using **SHA-256**
-4. Credentials are verified against `users.tsv`
-5. If valid → authentication success
-6. If invalid → user is prompted again
+<table align="center">
+<tr>
+<th>🔢 Step</th>
+<th>📝 Action</th>
+<th>🖼️</th>
+</tr>
 
-> This ensures basic security and avoids storing sensitive data in plaintext.
+<tr>
+<td>1️⃣</td>
+<td>User selects login/signup</td>
+<td>👆</td>
+</tr>
+
+<tr>
+<td>2️⃣</td>
+<td>Enter username & password</td>
+<td>⌨️</td>
+</tr>
+
+<tr>
+<td>3️⃣</td>
+<td>Password hashed (SHA-256)</td>
+<td>🔒</td>
+</tr>
+
+<tr>
+<td>4️⃣</td>
+<td>Checked against <code>users.tsv</code></td>
+<td>📄</td>
+</tr>
+
+<tr>
+<td>5️⃣</td>
+<td>Valid → Access granted</td>
+<td>✅</td>
+</tr>
+
+<tr>
+<td>6️⃣</td>
+<td>Invalid → Retry loop</td>
+<td>🔁</td>
+</tr>
+
+</table>
 
 ---
 
 ## 🎮 Game Flow
 
-1. Player 1 authentication
-2. Player 2 authentication
-3. Game launches via `game.py`
-4. Players interact through Pygame window
+<table align="center">
+<tr>
+<th>🎯 Step</th>
+<th>⚡ Action</th>
+<th>🖼️</th>
+</tr>
+
+<tr>
+<td>1️⃣</td>
+<td>Player 1 authentication</td>
+<td>👤</td>
+</tr>
+
+<tr>
+<td>2️⃣</td>
+<td>Player 2 authentication</td>
+<td>👤</td>
+</tr>
+
+<tr>
+<td>3️⃣</td>
+<td>Launch <code>game.py</code></td>
+<td>🚀</td>
+</tr>
+
+<tr>
+<td>4️⃣</td>
+<td>Gameplay via Pygame window</td>
+<td>🎮</td>
+</tr>
+
+</table>
 
 ---
 
-## 🔮 Improvements with time 
+## 🔮 Improvements with time
 
-* 🏆 Leaderboard system
-* 🎲 Multiple games (TicTacToe, Snake, etc.)
-* 🎨 Improved UI/UX
-* 🔒 Stronger authentication (salting, encryption)
-* 🌐 Multiplayer/network support
+<table align="center">
+<tr>
+<th>🚀 Feature</th>
+<th>💡 Idea</th>
+<th>🖼️</th>
+</tr>
+
+<tr>
+<td>🏆 Leaderboard</td>
+<td>Track scores & rankings</td>
+<td>🥇</td>
+</tr>
+
+<tr>
+<td>🎲 More Games</td>
+<td>Add TicTacToe, Snake, etc.</td>
+<td>🎯</td>
+</tr>
+
+<tr>
+<td>🎨 UI Upgrade</td>
+<td>Better visuals & animations</td>
+<td>✨</td>
+</tr>
+
+<tr>
+<td>🔒 Security+</td>
+<td>Salting & encryption</td>
+<td>🛡️</td>
+</tr>
+
+<tr>
+<td>🌐 Multiplayer</td>
+<td>Online gameplay support</td>
+<td>🌍</td>
+</tr>
+
+</table>
 
 ---
 
 ## 💡 Design Philosophy
 
-This project emphasizes:
+<table align="center">
+<tr>
+<td>🧠</td>
+<td>Separation of concerns</td>
+</tr>
 
-* Separation of concerns
-* Clean and readable structure
-* Using the right tool for the right task
-* Fun and smooth activity for both the users
-* Multiple games for both the users to choose from.
+<tr>
+<td>📖</td>
+<td>Clean & readable code</td>
+</tr>
+
+<tr>
+<td>⚙️</td>
+<td>Right tool for the right job</td>
+</tr>
+
+<tr>
+<td>🎮</td>
+<td>Fun & smooth gameplay</td>
+</tr>
+
+<tr>
+<td>🧩</td>
+<td>Expandable architecture</td>
+</tr>
+
+</table>
 
 ---
 
 ## 📌 Author
 
-* Pravar Kumar 
-* Shantanu Patil 
+<table align="center">
+<tr>
+<td>👨‍💻</td>
+<td><b>Pravar Kumar</b></td>
+</tr>
+
+<tr>
+<td>👨‍💻</td>
+<td><b>Shantanu Patil</b></td>
+</tr>
+</table>
 
 ---
 
 ## ⭐ Final Note
 
-This project is not just a game — it is a demonstration of **system design, security fundamentals, and modular programming** in a beginner-friendly yet scalable architecture.It is a fun game project created by us as an escape to from the everyday boredom.
-So plz enjoy :)
+<table align="center">
+<tr>
+<td>🎯</td>
+<td>This project showcases <b>system design + security + modular programming</b></td>
+</tr>
 
----
+<tr>
+<td>🎮</td>
+<td>A fun escape from everyday boredom</td>
+</tr>
 
+<tr>
+<td>💙</td>
+<td>Built with passion & creativity</td>
+</tr>
+</table>
 
+<p align="center">
+✨ <b>Enjoy the game & happy coding!</b> ✨
+</p>
