@@ -2,167 +2,108 @@
   <img src="images/Image1.png" width="800">
 </p>
 
-# 🎮 Mini Game Hub
-
-A modular, command-line driven mini game platform built using **Bash** and **Python (Pygame)**.  
-This project demonstrates clean system design, user authentication, and interactive gameplay in a structured and scalable way.
+<h1 align="center">🎮 Mini Game Hub</h1>
+<p align="center"><i>A modular, command-line driven mini game platform built using Bash & Python (Pygame)</i></p>
 
 ---
 
 ## 🚀 Overview
 
+<p align="center">
+  <img src="images/Private GIF.gif" width="800">
+</p>
+
 <table align="center">
 <tr>
-<td align="center">🎯</td>
-<td><b>Purpose</b></td>
-<td>Lightweight gaming platform with structured architecture</td>
-</tr>
-
-<tr>
-<td align="center">👥</td>
-<td><b>Users</b></td>
-<td>Two-player authentication before gameplay</td>
-</tr>
-
-<tr>
-<td align="center">🧠</td>
-<td><b>Concept</b></td>
-<td>Separation of concerns for clarity & maintainability</td>
-</tr>
-
-<tr>
-<td align="center">⚙️</td>
-<td><b>System Design</b></td>
-<td>Modular + scalable structure</td>
+<td align="center">🎯 <b>Purpose</b><br>Lightweight 2-player gaming platform</td>
+<td align="center">🧠 <b>Concept</b><br>Modular & clean architecture</td>
+<td align="center">⚡ <b>Experience</b><br>Fast & interactive gameplay</td>
 </tr>
 </table>
 
 ---
 
-<p align="center">
-  <img src="images/Private GIF.gif" width="800">
-</p>
-
 ## ✨ Features
 
 <table align="center">
 <tr>
-<th>🎮 Feature</th>
-<th>💡 Description</th>
-<th>🖼️ Visual</th>
+
+<td align="center" width="20%">
+<img src="https://img.icons8.com/fluency/96/lock.png"/><br>
+<b>Authentication</b>
+</td>
+
+<td align="center" width="20%">
+<img src="https://img.icons8.com/fluency/96/group.png"/><br>
+<b>Two Players</b>
+</td>
+
+<td align="center" width="20%">
+<img src="https://img.icons8.com/fluency/96/module.png"/><br>
+<b>Modular</b>
+</td>
+
+<td align="center" width="20%">
+<img src="https://img.icons8.com/fluency/96/controller.png"/><br>
+<b>Game Engine</b>
+</td>
+
+<td align="center" width="20%">
+<img src="https://img.icons8.com/fluency/96/branch.png"/><br>
+<b>Control Flow</b>
+</td>
+
 </tr>
 
 <tr>
-<td>🔐 Authentication</td>
-<td>Login / Signup system with secure access</td>
-<td><img src="images/auth.png" width="120"></td>
-</tr>
 
-<tr>
-<td>🔑 SHA-256 Security</td>
-<td>Passwords hashed (no plaintext storage)</td>
-<td><img src="images/security.png" width="120"></td>
-</tr>
+<td align="center">
+Login / Signup<br>SHA-256 hashing
+</td>
 
-<tr>
-<td>👥 Two Players</td>
-<td>Both users must login before game starts</td>
-<td><img src="images/users.png" width="120"></td>
-</tr>
+<td align="center">
+2-player auth<br>No duplicates
+</td>
 
-<tr>
-<td>🧩 Modular Design</td>
-<td>Separate files for logic, auth & game</td>
-<td><img src="images/modules.png" width="120"></td>
-</tr>
+<td align="center">
+Clean structure<br>Easy scaling
+</td>
 
-<tr>
-<td>🎮 Game Engine</td>
-<td>Pygame-based interactive UI</td>
-<td><img src="images/game.png" width="120"></td>
-</tr>
+<td align="center">
+Pygame UI<br>Interactive play
+</td>
 
-<tr>
-<td>🔁 Control Flow</td>
-<td>Validation loops + error handling</td>
-<td><img src="images/flow.png" width="120"></td>
-</tr>
+<td align="center">
+Validation<br>Error handling
+</td>
 
+</tr>
 </table>
 
 ---
 
 ## 🛠️ Tech Stack
 
-<table align="center">
-<tr>
-<th>⚙️ Technology</th>
-<th>💻 Role</th>
-<th>🖼️ Visual</th>
-</tr>
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=bash,python" /><br><br>
+  <img src="https://img.icons8.com/fluency/96/controller.png"/>
+</p>
 
-<tr>
-<td>🐚 Bash</td>
-<td>User interaction & control flow</td>
-<td><img src="images/bash.png" width="100"></td>
-</tr>
-
-<tr>
-<td>🐍 Python</td>
-<td>Core logic & authentication</td>
-<td><img src="images/python.png" width="100"></td>
-</tr>
-
-<tr>
-<td>🎮 Pygame</td>
-<td>Game engine & UI rendering</td>
-<td><img src="images/pygame.png" width="100"></td>
-</tr>
-
-</table>
+<p align="center"><b>Pygame Game Engine</b></p>
 
 ---
 
 ## 📁 Project Structure
 
-<table align="center">
-<tr>
-<th>📂 File</th>
-<th>📌 Purpose</th>
-<th>🖼️</th>
-</tr>
-
-<tr>
-<td><code>main.sh</code></td>
-<td>Entry point (handles user flow)</td>
-<td>🚀</td>
-</tr>
-
-<tr>
-<td><code>auth.py</code></td>
-<td>Login/signup + hashing</td>
-<td>🔐</td>
-</tr>
-
-<tr>
-<td><code>game.py</code></td>
-<td>Pygame engine</td>
-<td>🎮</td>
-</tr>
-
-<tr>
-<td><code>users.tsv</code></td>
-<td>User database</td>
-<td>📄</td>
-</tr>
-
-<tr>
-<td><code>README.md</code></td>
-<td>Documentation</td>
-<td>📘</td>
-</tr>
-
-</table>
+```bash
+Mini-Game-Hub/
+│
+├── main.sh
+├── auth.py
+├── game.py
+├── users.tsv
+└── README.md
+```
 
 ---
 
@@ -170,35 +111,52 @@ This project demonstrates clean system design, user authentication, and interact
 
 <table align="center">
 <tr>
-<th>⚡ Step</th>
-<th>💻 Command</th>
-<th>🖼️</th>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/download.png"/><br>
+<b>Clone</b>
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/settings.png"/><br>
+<b>Permissions</b>
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/play.png"/><br>
+<b>Run</b>
+</td>
+
 </tr>
 
 <tr>
-<td>1️⃣ Clone Repo</td>
-<td><code>git clone https://github.com/pravarkumar/mini-game-hub.git</code></td>
-<td>📥</td>
-</tr>
 
-<tr>
-<td>2️⃣ Enter Folder</td>
-<td><code>cd Mini-Game-Hub</code></td>
-<td>📂</td>
-</tr>
+<td>
 
-<tr>
-<td>3️⃣ Make Executable</td>
-<td><code>chmod +x main.sh</code></td>
-<td>⚙️</td>
-</tr>
+```bash
+git clone https://github.com/pravarkumar/mini-game-hub.git
+cd Mini-Game-Hub
+```
 
-<tr>
-<td>4️⃣ Run Project</td>
-<td><code>bash main.sh</code></td>
-<td>🚀</td>
-</tr>
+</td>
 
+<td>
+
+```bash
+chmod +x main.sh
+```
+
+</td>
+
+<td>
+
+```bash
+bash main.sh
+```
+
+</td>
+
+</tr>
 </table>
 
 ---
@@ -207,47 +165,47 @@ This project demonstrates clean system design, user authentication, and interact
 
 <table align="center">
 <tr>
-<th>🔢 Step</th>
-<th>📝 Action</th>
-<th>🖼️</th>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/login-rounded-right.png"/><br>
+Login
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/contact-card.png"/><br>
+Credentials
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/password.png"/><br>
+Hashing
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/database.png"/><br>
+Verify
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/ok.png"/><br>
+Success
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/cancel.png"/><br>
+Retry
+</td>
+
 </tr>
 
 <tr>
-<td>1️⃣</td>
-<td>User selects login/signup</td>
-<td>👆</td>
+<td>User selects</td>
+<td>Enter details</td>
+<td>Encrypt password</td>
+<td>Check database</td>
+<td>Access granted</td>
+<td>Try again</td>
 </tr>
-
-<tr>
-<td>2️⃣</td>
-<td>Enter username & password</td>
-<td>⌨️</td>
-</tr>
-
-<tr>
-<td>3️⃣</td>
-<td>Password hashed (SHA-256)</td>
-<td>🔒</td>
-</tr>
-
-<tr>
-<td>4️⃣</td>
-<td>Checked against <code>users.tsv</code></td>
-<td>📄</td>
-</tr>
-
-<tr>
-<td>5️⃣</td>
-<td>Valid → Access granted</td>
-<td>✅</td>
-</tr>
-
-<tr>
-<td>6️⃣</td>
-<td>Invalid → Retry loop</td>
-<td>🔁</td>
-</tr>
-
 </table>
 
 ---
@@ -256,78 +214,35 @@ This project demonstrates clean system design, user authentication, and interact
 
 <table align="center">
 <tr>
-<th>🎯 Step</th>
-<th>⚡ Action</th>
-<th>🖼️</th>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/male.png"/><br>
+Player 1
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/female.png"/><br>
+Player 2
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/rocket.png"/><br>
+Launch
+</td>
+
+<td align="center">
+<img src="https://img.icons8.com/fluency/96/controller.png"/><br>
+Play
+</td>
+
 </tr>
 
 <tr>
-<td>1️⃣</td>
-<td>Player 1 authentication</td>
-<td>👤</td>
+<td>Login</td>
+<td>Login</td>
+<td>Start game</td>
+<td>Pygame interaction</td>
 </tr>
-
-<tr>
-<td>2️⃣</td>
-<td>Player 2 authentication</td>
-<td>👤</td>
-</tr>
-
-<tr>
-<td>3️⃣</td>
-<td>Launch <code>game.py</code></td>
-<td>🚀</td>
-</tr>
-
-<tr>
-<td>4️⃣</td>
-<td>Gameplay via Pygame window</td>
-<td>🎮</td>
-</tr>
-
-</table>
-
----
-
-## 🔮 Improvements with time
-
-<table align="center">
-<tr>
-<th>🚀 Feature</th>
-<th>💡 Idea</th>
-<th>🖼️</th>
-</tr>
-
-<tr>
-<td>🏆 Leaderboard</td>
-<td>Track scores & rankings</td>
-<td>🥇</td>
-</tr>
-
-<tr>
-<td>🎲 More Games</td>
-<td>Add TicTacToe, Snake, etc.</td>
-<td>🎯</td>
-</tr>
-
-<tr>
-<td>🎨 UI Upgrade</td>
-<td>Better visuals & animations</td>
-<td>✨</td>
-</tr>
-
-<tr>
-<td>🔒 Security+</td>
-<td>Salting & encryption</td>
-<td>🛡️</td>
-</tr>
-
-<tr>
-<td>🌐 Multiplayer</td>
-<td>Online gameplay support</td>
-<td>🌍</td>
-</tr>
-
 </table>
 
 ---
@@ -336,69 +251,33 @@ This project demonstrates clean system design, user authentication, and interact
 
 <table align="center">
 <tr>
-<td>🧠</td>
-<td>Separation of concerns</td>
+<td align="center">🧠 <b>Separation</b></td>
+<td align="center">✨ <b>Clean Code</b></td>
+<td align="center">🛠️ <b>Right Tools</b></td>
+<td align="center">🎮 <b>Fun First</b></td>
 </tr>
 
 <tr>
-<td>📖</td>
-<td>Clean & readable code</td>
+<td align="center">Modular structure</td>
+<td align="center">Readable code</td>
+<td align="center">Efficient tech use</td>
+<td align="center">Great experience</td>
 </tr>
-
-<tr>
-<td>⚙️</td>
-<td>Right tool for the right job</td>
-</tr>
-
-<tr>
-<td>🎮</td>
-<td>Fun & smooth gameplay</td>
-</tr>
-
-<tr>
-<td>🧩</td>
-<td>Expandable architecture</td>
-</tr>
-
 </table>
 
 ---
 
-## 📌 Author
+## 📌 Authors
 
-<table align="center">
-<tr>
-<td>👨‍💻</td>
-<td><b>Pravar Kumar</b></td>
-</tr>
-
-<tr>
-<td>👨‍💻</td>
-<td><b>Shantanu Patil</b></td>
-</tr>
-</table>
+<p align="center">
+👨‍💻 Pravar Kumar & 👨‍💻 Shantanu Patil
+</p>
 
 ---
 
 ## ⭐ Final Note
 
-<table align="center">
-<tr>
-<td>🎯</td>
-<td>This project showcases <b>system design + security + modular programming</b></td>
-</tr>
-
-<tr>
-<td>🎮</td>
-<td>A fun escape from everyday boredom</td>
-</tr>
-
-<tr>
-<td>💙</td>
-<td>Built with passion & creativity</td>
-</tr>
-</table>
-
 <p align="center">
-✨ <b>Enjoy the game & happy coding!</b> ✨
+<b>Not just a game — a system design + security + modular programming showcase.</b><br><br>
+🎮 Built for fun. Built to learn. Built to scale.
 </p>
