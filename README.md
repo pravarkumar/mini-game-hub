@@ -4,7 +4,7 @@
 
 <h1 align="center">🎮 Mini Game Hub</h1>
 <p align="center"><i>A modular, command-line driven mini game platform built using Bash & Python (Pygame)</i></p>
-
+<!-- Itallic for esthatic :) -->
 ---
 
 ## 🚀 Overview
@@ -83,7 +83,7 @@ Validation<br>Error handling
 ---
 
 ## 🛠️ Tech Stack
-
+<!-- These are all the main pilars of our projects the major domains used in the project -->
 <p align="center">
   <img src="https://skillicons.dev/icons?i=bash,python" /><br><br>
   <img src="https://img.icons8.com/fluency/96/controller.png"/>
@@ -94,7 +94,7 @@ Validation<br>Error handling
 ---
 
 ## 📁 Project Structure
-
+<!-- This is how our project is structured -->
 ```bash
 Mini-Game-Hub/
 │
@@ -165,7 +165,7 @@ bash main.sh
 
 <table align="center">
 <tr>
-
+<!-- tried using absolute paths for easy access-->
 <td align="center">
 <img src="https://img.icons8.com/fluency/96/login-rounded-right.png"/><br>
 Login
@@ -259,7 +259,7 @@ Play
 
 <tr>
 <td align="center">Modular structure</td>
-<td align="center">Readable code</td>
+<td align="center">Readable code & code takes input in an intellegent way</td>
 <td align="center">Efficient tech use</td>
 <td align="center">Great experience</td>
 </tr>
@@ -279,5 +279,5 @@ Play
 
 <p align="center">
 <b>Not just a game — a system design + security + modular programming showcase.</b><br><br>
-🎮 Built for fun. Built to learn. Built to scale.
+🎮 Built for fun. Built to learn. Built to scale. These lines represent the purpose and the essence of this interesting project. We've tried to integrate all our knowledge learned form the CS108 course into this project so plz play to your heart's content and enjoy :).
 </p>
