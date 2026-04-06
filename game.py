@@ -3,7 +3,7 @@ import pygame # ofc its for the game
 import sys # we took input from it and even exited the program + other things also
 import os # folder paths and stuff can be accessed with this 
 import subprocess #helps run commands in temrinal 
-
+import numpy as np 
  
 WIDTH = 800
 HEIGHT = 850
@@ -148,6 +148,19 @@ def main():
 
         pygame.display.update()# updated the screen after whtaever chages happened 
         clock.tick(60) # set to 60 frames per second 
+class Game:
+    def __init__(gm,current_player,player1,player2,row,col):
+        gm.player1=player1
+        gm.player2=player2
+        gm.board=np.zeros((row,col))
+        gm.current_player=player1
+    def switch(gm) :
+        if gm.current_player==gm.player1:
+            gm.current_player=gm.player2
+        else:
+            gm.current_player=gm.player1
+    def check_win(gm):
+        raise NotImplementedError("Subclasses must implement this method") # each game has their own winning condition 
 
-if __name__ == "__main__":# Wonly use when used directly not as a support file 
+if __name__ == "__main__":# Only use when used directly not as a support file 
     main()
