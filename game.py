@@ -4,6 +4,7 @@ import sys # we took input from it and even exited the program + other things al
 import os # folder paths and stuff can be accessed with this 
 import subprocess #helps run commands in temrinal 
 import numpy as np 
+#import tictactoe from games.tictactoe 
  
 WIDTH = 800
 HEIGHT = 850
@@ -43,15 +44,15 @@ else:
 
 # Time to make the buttons glow 
 buttons = {
-    "shooter": pygame.Rect(83, 280, 628, 97),
-    "othello": pygame.Rect(85, 392, 629, 99),
-    "connect4": pygame.Rect(88, 502, 626, 101),
-    "tictactoe": pygame.Rect(85, 615, 630, 99),
-    "exit": pygame.Rect(83, 730, 632, 87),
+    "flappy_bird": pygame.Rect(83, 260, 634, 117),
+    "othello": pygame.Rect(85, 386, 634,117),
+    "connect4": pygame.Rect(84, 512, 634, 117),
+    "tictactoe": pygame.Rect(85, 632, 634, 118),
+    "exit": pygame.Rect(83, 765, 634, 117),
 }
 # defined the buttons 
 glow_colors = {
-    "shooter": (0, 0, 255),
+    "flappy_bird": (0, 0, 255),
     "othello": (0, 255, 0),
     "connect4": (255, 255, 0),
     "tictactoe": (255, 100, 0),
@@ -75,6 +76,7 @@ def draw_glow(screen, rect, color):# we take input as the screen and the rect an
         )
 
     screen.blit(glow_surface, rect.topleft) # Inbuilt fucntion used to draw things on another like here the first argument's top left corner will match to the second arg which is a pair of cord which i true as i gave the top left of the rect as input thius it gets drn on the rectangle perfectly 
+# Obv we saw yt tutorial for this glowing thing :)
 
 # this will allow us to execute different games
 def run_file(filename):
@@ -109,7 +111,8 @@ def main():
                 elif buttons["tictactoe"].collidepoint(pos):
                     pygame.mixer.music.stop()
                     pygame.display.quit()
-                    run_file("ticktacktoe.py")
+                    #run_file("tictactoe.py")
+                
 
                 elif buttons["connect4"].collidepoint(pos):
                     pygame.mixer.music.stop()
@@ -121,18 +124,19 @@ def main():
                     pygame.display.quit()
                     run_file("othello.py")
 
-                elif buttons["shooter"].collidepoint(pos):
+                elif buttons["flappy_bird"].collidepoint(pos):
                     pygame.mixer.music.stop()
                     pygame.display.quit()
-                    run_file("shooter.py")
+                    run_file("flappy_bird.py")
 
         # Detect hover ad respond acc 
         for name, rect in buttons.items():
             if rect.collidepoint(mouse_pos):# We try to find the event of mouse pointing 
                 hovered = name
                 break
-
+                
         # Draw background 
+
         screen.blit(background, (0, 0))
 
         # Draw glow on hover 
@@ -149,17 +153,17 @@ def main():
         pygame.display.update()# updated the screen after whtaever chages happened 
         clock.tick(60) # set to 60 frames per second 
 class Game:
-    def __init__(gm,current_player,player1,player2,row,col):
-        gm.player1=player1
-        gm.player2=player2
-        gm.board=np.zeros((row,col))
-        gm.current_player=player1
-    def switch(gm) :
-        if gm.current_player==gm.player1:
-            gm.current_player=gm.player2
+    def __init__(self,current_player,player1,player2,row,col):
+        self.player1=player1
+        self.player2=player2
+        self.board=np.zeros((row,col))
+        self.current_player=player1
+    def switch(self) :
+        if self.current_player==self.player1:
+            self.current_player=self.player2
         else:
-            gm.current_player=gm.player1
-    def check_win(gm):
+            self.current_player=self.player1
+    def check_win(self):
         raise NotImplementedError("Subclasses must implement this method") # each game has their own winning condition 
 
 if __name__ == "__main__":# Only use when used directly not as a support file 
