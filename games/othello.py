@@ -2,15 +2,15 @@ import pygame
 import numpy as np
 import sys
 
-WIDTH = 800
-HEIGHT = 850
+WIDTH = 825
+HEIGHT = 825
 
 class Othello:
     def __init__(self):
         self.bgcolor = (0, 120, 0)
         self.linecolor = (0, 0, 0)
         self.width = WIDTH
-        self.height = WIDTH
+        self.height = HEIGHT
         self.cellsize = self.width // 8
 
         self.board = np.zeros((8, 8), dtype=int)

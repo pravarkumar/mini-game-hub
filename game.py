@@ -5,11 +5,11 @@ import subprocess
 import numpy as np
 from games.tictactoe import TicTacToe
 from games.othello import Othello
-#from games.othello import Othello
+from games.connect4 import Connect4
 
 
-WIDTH = 800
-HEIGHT = 850
+WIDTH = 825
+HEIGHT = 825
 
 pygame.init()
 pygame.mixer.init()
@@ -38,11 +38,11 @@ else:
 
 # Buttons
 buttons = {
-    "flappy_bird": pygame.Rect(83, 260, 634, 117),
-    "othello": pygame.Rect(85, 386, 634, 117),
-    "connect4": pygame.Rect(84, 512, 634, 117),
-    "tictactoe": pygame.Rect(85, 632, 634, 118),
-    "exit": pygame.Rect(83, 765, 634, 117),
+    "flappy_bird": pygame.Rect(83, 250, 660, 117),
+    "othello": pygame.Rect(85, 370, 655, 117),
+    "connect4": pygame.Rect(84, 495, 655, 115),
+    "tictactoe": pygame.Rect(85, 615, 655, 115),
+    "exit": pygame.Rect(83, 740, 660, 117),
 }
 
 glow_colors = {
@@ -179,8 +179,62 @@ def main():
 
                 elif buttons["connect4"].collidepoint(pos):
                     pygame.mixer.music.stop()
-                    pygame.display.quit()
-                    run_file("games/connect4.py")
+                    music_path = os.path.join(BASE_DIR, "sound_effects", "Connect4.mp3")
+                    if os.path.exists(music_path):
+                        pygame.mixer.music.load(music_path)
+                        pygame.mixer.music.set_volume(0.5)
+                        pygame.mixer.music.play(-1)
+                    else:
+                        print("Connect4.mp3 not found!")
+
+                    game = Connect4()
+                    pygame.display.set_caption("Connect 4, nothing more 🔴🟡")
+                    running = True
+
+                    while running:
+                        a = "idk3.0"
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                pygame.quit()
+                                sys.exit()
+
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                x, y = event.pos
+                                row = y // game.cellsize
+                                col = x // game.cellsize
+
+                                if game.makemove(row, col):
+                                    if game.checkwin():
+                                        winner = game.current_player  # current player just won
+                                        a=game.end_screen(screen, winner)
+                                        running = False
+                                    elif game.isdraw():
+                                        a=game.end_screen(screen,"draw")
+                                        running = False
+                                    else:
+                                        game.switch() 
+                            
+                        if a == "quit":
+                            pygame.mixer.music.stop()
+                            music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                            if os.path.exists(music_path):
+                                pygame.mixer.music.load(music_path)
+                                pygame.mixer.music.set_volume(0.5)
+                                pygame.mixer.music.play(-1)
+                            running1 = False
+
+                        if a == "playagain":
+                            pygame.mixer.music.stop()
+                            music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                            if os.path.exists(music_path):
+                                pygame.mixer.music.load(music_path)
+                                pygame.mixer.music.set_volume(0.5)
+                                pygame.mixer.music.play(-1)
+                            running1 = True
+
+                        game.drawgrid(screen)
+                        game.drawmarks(screen)
+                        pygame.display.update()
 
                 elif buttons["othello"].collidepoint(pos):
                     pygame.mixer.music.stop()
