@@ -4,7 +4,7 @@ import sys
 
 WIDTH = 825
 HEIGHT = 825
-min = [0,0,0,0,0,0,0]
+
 
 class Connect4:
     def __init__(self):
@@ -13,7 +13,7 @@ class Connect4:
         self.width = WIDTH
         self.height = HEIGHT
         self.cellsize = self.width // 7
-
+        self.mn=[0,0,0,0,0,0,0]
         self.board = np.zeros((7, 7), dtype=int)
 
         self.current_player = 1
@@ -46,11 +46,11 @@ class Connect4:
     def makemove(self, row, col):
         if col < 0 or col >= 7:
             return False
-        if min[col] >= 7:
+        if self.mn[col] >= 7:
             return False
 
-        self.board[min[col]][col] = self.current_player
-        min[col] += 1
+        self.board[self.mn[col]][col] = self.current_player
+        self.mn[col] += 1
         return True
 
     def checkwin(self):

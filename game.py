@@ -188,7 +188,7 @@ def main():
                         print("Connect4.mp3 not found!")
 
                     game = Connect4()
-                    pygame.display.set_caption("Connect 4, nothing more 🔴🟡")
+                    pygame.display.set_caption("Keeping it simple—connect 4 🔴🔵")
                     running = True
 
                     while running:
