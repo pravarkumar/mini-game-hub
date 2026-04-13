@@ -5,18 +5,16 @@ import sys
 class TicTacToe:
     def __init__(self):
         self.bgcolor =(28, 170, 156)
-        self.linecolor =(23, 145, 135)
+        self.linecolor =(0, 0, 0)
         self.xcolor =(66, 66, 66)
-        self.ocolor =(239, 231, 200)
+        self.ocolor =(255, 255, 255)
         self.cellsize =266  # each cell is now 240x240
-        self.width =798    # board width
-        self.height =798     # board height
+        self.width =800    # board width
+        self.height =850     # board height
         self.board = np.zeros((3,3))
         self.current_player =1
         self.player1 =1
         self.player2 =2
-
-    
 
     def switch(self):
         self.current_player = self.player2 if self.current_player==self.player1 else self.player1

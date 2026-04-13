@@ -153,7 +153,7 @@ c=0
 
                 if registered "$username2"
                 then
-                        echo -n "Enter Password: "
+                        echo -ne "${YELLOW}🔒 Enter Password: ${RESET}"
                         read -s password2
                         echo
                         hash_pass2=$(echo -n "$password2" | sha256sum | cut -d " " -f1)

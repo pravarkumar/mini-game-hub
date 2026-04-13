@@ -4,6 +4,9 @@ import os
 import subprocess
 import numpy as np
 from games.tictactoe import TicTacToe
+from games.othello import Othello
+#from games.othello import Othello
+
 
 WIDTH = 800
 HEIGHT = 850
@@ -91,13 +94,14 @@ class Game:
 
 
 def main():
-    running1=True
-    while running1:
+    running1=True #tells the status of this running process 
+    while running1:# if true then runs 
         mouse_pos = pygame.mouse.get_pos()
         hovered = None
+        pygame.display.set_caption("Just a few more games… no promises 🎮😉")
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pygame.event.get():# sees which type of event has occured 
+            if event.type == pygame.QUIT:# the red cross at the top 
                 pygame.mixer.music.stop()
                 pygame.quit()
                 sys.exit()
@@ -105,19 +109,26 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = event.pos
 
-                if buttons["exit"].collidepoint(pos):
+                if buttons["exit"].collidepoint(pos):#Ofc clicking on exit is just end of the game 
                     pygame.mixer.music.stop()
                     pygame.quit()
                     sys.exit()
 
                 elif buttons["tictactoe"].collidepoint(pos):
-                    game=TicTacToe()
-                    pygame.display.set_caption("Tic Tac Toe")
-
-                    running=True
+                    game=TicTacToe()#We call the constructor of the class TicTacToe like c=int() is also valid it means that c will be of class int and have the initial value = 0 like c=1 is same as c=int(1)
+                    pygame.display.set_caption("Just a quiet game of Tic Tac Toe ⭕❌🎮")# This text will come at the top of the screen of the game 
+                    pygame.mixer.music.stop()
+                    music_path = os.path.join(BASE_DIR, "sound_effects", "TicTacToe.mp3")
+                    if os.path.exists(music_path):
+                        pygame.mixer.music.load(music_path)
+                        pygame.mixer.music.set_volume(0.5)
+                        pygame.mixer.music.play(-1)
+                    else:
+                        print("TicTacToe.mp3 not found!")
+                    running=True#This is the status of this particular game 
 
                     while running:
-                        a="idk"
+                        a="idk"# name anything like will not chnage if no clicks of quit or play_again 
                         for event in pygame.event.get():
                             if event.type == pygame.QUIT:
                                 pygame.quit()
@@ -140,15 +151,31 @@ def main():
                                     else:
                                         game.switch() 
                         if a== "quit":
-
+                            pygame.mixer.music.stop()
+                            music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                            if os.path.exists(music_path):
+                                pygame.mixer.music.load(music_path)
+                                pygame.mixer.music.set_volume(0.5)
+                                pygame.mixer.music.play(-1)
+                            else:
+                                print("menu_music.mp3 not found!")
                             running1=False
+
                         if a== "playagain":
                             #code for leaderboard.sh
+                            pygame.mixer.music.stop()
+                            music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                            if os.path.exists(music_path):
+                                pygame.mixer.music.load(music_path)
+                                pygame.mixer.music.set_volume(0.5)
+                                pygame.mixer.music.play(-1)
+                            else:
+                                print("menu_music.mp3 not found!")
                             running1=True
 
                         game.drawgrid(screen)
                         game.drawmarks(screen)
-                        pygame.display.update()
+                        pygame.display.update()#Easy code :)
 
                 elif buttons["connect4"].collidepoint(pos):
                     pygame.mixer.music.stop()
@@ -157,8 +184,92 @@ def main():
 
                 elif buttons["othello"].collidepoint(pos):
                     pygame.mixer.music.stop()
-                    pygame.display.quit()
-                    run_file("games/othello.py")
+                    music_path = os.path.join(BASE_DIR, "sound_effects", "Othello.mp3")
+                    if os.path.exists(music_path):
+                        pygame.mixer.music.load(music_path)
+                        pygame.mixer.music.set_volume(0.5)
+                        pygame.mixer.music.play(-1)
+                    else:
+                        print("Othello.mp3 not found!")
+
+                    game = Othello()
+                    pygame.display.set_caption("Othello ⚫⚪ :)")
+                    running = True
+
+                    while running:
+                        a = "idk2.0"
+
+        #  CHECK GAME END (both players stuck)
+                        if (not game.valid_possible(game.player1) and not game.valid_possible(game.player2)):
+
+                            black = np.sum(game.board == 1)
+                            white = np.sum(game.board == 2)
+
+                            if black > white:
+                                winner = 1
+                            elif white > black:
+                                winner = 2
+                            else:
+                                winner = "draw"
+
+                            a = game.end_screen(screen, winner)
+                            running = False
+
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                pygame.quit()
+                                sys.exit()
+
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                x, y = event.pos
+                                row = y // game.cellsize
+                                col = x // game.cellsize
+
+                                if game.makemove(row, col):
+
+                                    game.switch()
+
+                    #  skip turn logic
+                                    if not game.valid_possible(game.current_player):
+                                        game.switch()
+
+                        # check again → game over
+                                        if not game.valid_possible(game.current_player):
+
+                                            black = np.sum(game.board == 1)
+                                            white = np.sum(game.board == 2)
+
+                                            if black > white:
+                                                winner = 1
+                                            elif white > black:
+                                                winner = 2
+                                            else:
+                                                winner = "draw"
+
+                                            a = game.end_screen(screen, winner)
+                                            running = False
+
+                        if a == "quit":
+                            pygame.mixer.music.stop()
+                            music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                            if os.path.exists(music_path):
+                                pygame.mixer.music.load(music_path)
+                                pygame.mixer.music.set_volume(0.5)
+                                pygame.mixer.music.play(-1)
+                            running1 = False
+
+                        if a == "playagain":
+                            pygame.mixer.music.stop()
+                            music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                            if os.path.exists(music_path):
+                                pygame.mixer.music.load(music_path)
+                                pygame.mixer.music.set_volume(0.5)
+                                pygame.mixer.music.play(-1)
+                            running1 = True
+
+                        game.drawgrid(screen)
+                        game.drawmarks(screen)
+                        pygame.display.update()
 
                 elif buttons["flappy_bird"].collidepoint(pos):
                     pygame.mixer.music.stop()
