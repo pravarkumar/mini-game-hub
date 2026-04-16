@@ -7,7 +7,7 @@ HEIGHT = 825
 
 
 class Connect4:
-    def __init__(self):
+    def __init__(self,player1,player2):
         self.bgcolor = (255, 237, 41)
         self.linecolor = (0, 0, 0)
         self.width = WIDTH
@@ -16,9 +16,9 @@ class Connect4:
         self.mn=[0,0,0,0,0,0,0]
         self.board = np.zeros((7, 7), dtype=int)
 
-        self.current_player = 1
-        self.player1 = 1
-        self.player2 = 2
+        self.current_player=player1
+        self.player1=player1
+        self.player2=player2
 
     def switch(self):
         self.current_player = self.player2 if self.current_player == self.player1 else self.player1
@@ -49,7 +49,7 @@ class Connect4:
         if self.mn[col] >= 7:
             return False
 
-        self.board[self.mn[col]][col] = self.current_player
+        self.board[self.mn[col]][col] = 1 if self.current_player==self.player1 else 2
         self.mn[col] += 1
         return True
 
@@ -75,35 +75,32 @@ class Connect4:
 
     def end_screen(self, screen, winner):
         screen.fill((50,50,50))
-        font = pygame.font.SysFont(None, 50)
-
+        font=pygame.font.SysFont(None,50)
         if winner != "draw":
-            text = font.render(f"Player {winner} wins!", True, (255,255,255))
+            text = font.render(f"{winner} Wins!", True, (255,255,255))
         else:
             text = font.render("Draw!", True, (255,255,255))
-
         screen.blit(text, (150,150))
-
+        # Buttons
         playrect = pygame.Rect(100,300,180,60)
         menurect = pygame.Rect(320,300,180,60)
-
         pygame.draw.rect(screen,(0,200,0),playrect)
         pygame.draw.rect(screen,(200,0,0),menurect)
-
-        screen.blit(font.render("Play Again", True,(255,255,255)), (110,310))
-        screen.blit(font.render("Quit", True,(255,255,255)), (330,310))
-
+        playtext = font.render("Play Again", True,(255,255,255))
+        menutext = font.render("Quit", True,(255,255,255))
+        screen.blit(playtext,(110,310))
+        screen.blit(menutext,(330,310))
         pygame.display.update()
-
-        while True:
+        waiting=True
+        while waiting:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type==pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = event.pos
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    pos=event.pos
                     if playrect.collidepoint(pos):
+                        
                         return "playagain"
                     elif menurect.collidepoint(pos):
                         return "quit"

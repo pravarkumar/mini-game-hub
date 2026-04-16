@@ -6,7 +6,7 @@ WIDTH = 825
 HEIGHT = 825
 
 class Othello:
-    def __init__(self):
+    def __init__(self,player1,player2):
         self.bgcolor = (0, 120, 0)
         self.linecolor = (0, 0, 0)
         self.width = WIDTH
@@ -19,9 +19,9 @@ class Othello:
         self.board[3][4] = 2
         self.board[4][3] = 2
 
-        self.current_player = 1
-        self.player1 = 1
-        self.player2 = 2
+        self.current_player = player1
+        self.player1 = player1
+        self.player2 = player2
 
     def switch(self):
         self.current_player = self.player2 if self.current_player == self.player1 else self.player1
@@ -56,6 +56,8 @@ class Othello:
             return False
 
         opponent = self.player2 if self.current_player == self.player1 else self.player1
+        a=1 if self.current_player==self.player1 else 2
+        b=1 if a==2 else 2
 
         directions = [(-1,0),(1,0),(0,-1),(0,1),
                       (-1,-1),(-1,1),(1,-1),(1,1)]
@@ -65,9 +67,9 @@ class Othello:
             found_opponent = False
 
             while 0 <= r < 8 and 0 <= c < 8:
-                if self.board[r][c] == opponent:
+                if self.board[r][c] == b:
                     found_opponent = True
-                elif self.board[r][c] == self.current_player:
+                elif self.board[r][c] == a:
                     if found_opponent:
                         return True
                     break
@@ -83,8 +85,11 @@ class Othello:
         if not self.move_isvalid(row, col):
             return False
 
-        self.board[row][col] = self.current_player
+        self.board[row][col] = 1 if self.current_player==self.player1 else 2
         opponent = self.player2 if self.current_player == self.player1 else self.player1
+        
+        a=1 if self.current_player==self.player1 else 2
+        b=1 if a==2 else 2
 
         directions = [(-1,0),(1,0),(0,-1),(0,1),
                       (-1,-1),(-1,1),(1,-1),(1,1)]
@@ -94,11 +99,11 @@ class Othello:
             to_flip = []
 
             while 0 <= r < 8 and 0 <= c < 8:
-                if self.board[r][c] == opponent:
+                if self.board[r][c] == b:
                     to_flip.append((r, c))
-                elif self.board[r][c] == self.current_player:
+                elif self.board[r][c] == a:
                     for rr, cc in to_flip:
-                        self.board[rr][cc] = self.current_player
+                        self.board[rr][cc] = a
                     break
                 else:
                     break
@@ -145,7 +150,7 @@ class Othello:
         font = pygame.font.SysFont(None, 50)
 
         if winner != "draw":
-            text = font.render(f"Player {winner} wins!", True, (255,255,255))
+            text = font.render(f"{winner} wins!", True, (255,255,255))
         else:
             text = font.render("Draw!", True, (255,255,255))
 

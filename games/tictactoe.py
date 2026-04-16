@@ -3,33 +3,34 @@ import numpy as np
 import sys
 
 class TicTacToe:
-    def __init__(self):
+    def __init__(self,player1,player2):
         self.bgcolor =(28, 170, 156)
+        self.ROWS=10
+        self.COLS=10
         self.linecolor =(0, 0, 0)
         self.xcolor =(66, 66, 66)
         self.ocolor =(255, 255, 255)
-        self.cellsize =266  # each cell is now 240x240
-        self.width =800    # board width
-        self.height =850     # board height
-        self.board = np.zeros((3,3))
-        self.current_player =1
-        self.player1 =1
-        self.player2 =2
+        self.cellsize =82  # each cell is now 240x240
+        self.width =self.cellsize*self.ROWS    # board width
+        self.height =self.cellsize*self.COLS     # board height
+        self.board = np.zeros((self.ROWS,self.COLS))
+        self.current_player =player1
+        self.player1 =player1
+        self.player2 =player2
 
     def switch(self):
         self.current_player = self.player2 if self.current_player==self.player1 else self.player1
 
     def drawgrid(self, screen):
         screen.fill(self.bgcolor)
-        pygame.draw.line(screen, self.linecolor, (self.cellsize,0),(self.cellsize,self.height),5)
-        pygame.draw.line(screen, self.linecolor, (2*self.cellsize,0),(2*self.cellsize,self.height),5)
-        # Horizontal
-        pygame.draw.line(screen, self.linecolor, (0,self.cellsize),(self.width,self.cellsize),5)
-        pygame.draw.line(screen, self.linecolor, (0,2*self.cellsize),(self.width,2*self.cellsize),5)
+        for i in range(1,self.COLS):
+            pygame.draw.line(screen,self.linecolor,(self.cellsize*i,0),(self.cellsize*i,self.height),2)
+        for i in range(1,self.ROWS):
+            pygame.draw.line(screen,self.linecolor,(0,i*self.cellsize),(self.width,i*self.cellsize),2)
 
     def drawmarks(self, screen):
-        for row in range(3):
-            for col in range(3):
+        for row in range(10):
+            for col in range(10):
                 x = col*self.cellsize
                 y = row*self.cellsize
                 if self.board[row][col]==1:
@@ -40,21 +41,32 @@ class TicTacToe:
 
     def makemove(self,row,col):
         if self.board[row][col]==0:
-            self.board[row][col]=self.current_player
+            if self.current_player==self.player1:
+                self.board[row][col]=1
+            else:
+                self.board[row][col]=2
             return True
         return False
 
-    def checkwin(self):
-        for i in range(3):
-            if self.board[i][0]==self.board[i][1]==self.board[i][2]!=0:
-                return True
-            if self.board[0][i]==self.board[1][i]==self.board[2][i]!=0:
-                return True
-        if self.board[0][0]==self.board[1][1]==self.board[2][2]!=0:
-            return True
-        if self.board[0][2]==self.board[1][1]==self.board[2][0]!=0:
-            return True
-        return False
+    def checkwin(self,player):
+        if player==self.player1:
+            b=(self.board==1)  #convert to True/False grid
+        else:
+            b=(self.board==2)
+
+        #Horizontal
+        h=b[:,:-4] & b[:,1:-3] & b[:,2:-2] & b[:,3:-1] & b[:,4:]
+
+        #Vertical 
+        v=b[:-4,:] & b[1:-3,:] & b[2:-2,:] & b[3:-1,:] & b[4:,:]
+
+        #Diagonal 
+        d1=b[:-4,:-4] & b[1:-3,1:-3] & b[2:-2,2:-2] & b[3:-1,3:-1] & b[4:,4:]
+
+        #Diagonal 
+        d2=b[:-4,4:] & b[1:-3,3:-1] & b[2:-2,2:-2] & b[3:-1,1:-3] & b[4:,:-4]
+
+        return np.any(h) or np.any(v) or np.any(d1) or np.any(d2)
 
     def isdraw(self):
         return np.all(self.board!=0)
@@ -64,7 +76,7 @@ class TicTacToe:
         screen.fill((50,50,50))
         font=pygame.font.SysFont(None,50)
         if winner != "draw":
-            text = font.render(f"Player {winner} wins!", True, (255,255,255))
+            text = font.render(f"{winner} Wins!", True, (255,255,255))
         else:
             text = font.render("Draw!", True, (255,255,255))
         screen.blit(text, (150,150))
