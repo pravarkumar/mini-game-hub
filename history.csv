@@ -5,3 +5,5 @@ loki,shanu,connect4,win
 loki,shanu,tictactoe,win
 shanu,loki,othello,win
 t,p,tictactoe,win
+t,p,tictactoe,win
+p,t,tictactoe,win

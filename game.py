@@ -144,7 +144,7 @@ def askpref(game):
 
 def leaderboard(sortby):
     lpath=os.path.join(BASE_DIR, "leaderboard.sh")
-    subprocess.run(["bash",lpath,sortby])
+    subprocess.run([r"C:\Program Files\Git\bin\bash.exe",lpath,sortby])
 
 
 

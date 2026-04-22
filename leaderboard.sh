@@ -2,7 +2,7 @@
 # leaderboard.sh - reads history.csv and shows formatted leaderboard
 # Usage: bash leaderboard.sh [wins|losses|ratio]
 
-$PARAMETER="$1"
+PARAMETER="$1"
 HISTORY="history.csv"
 
 
@@ -15,10 +15,10 @@ echo -e "${YELLOW}Sorted by: $PARAMETER${RESET}"
 echo
 awk -F',' -v sort_by="$PARAMETER" '
 NR {
-    p1     = $1
-    p2     = $2
-    game   = $3
-    result = $4
+    p1=$1
+    p2=$2
+    game =$3
+    result =$4
 
     if (result == "draw") {
         draws[game][p1]++
@@ -30,7 +30,7 @@ NR {
     losses[game][p2]++
 }
 END {
-    for (g in wins) {
+    for (g in wins){
         print "Game: " g
         printf "%-20s %-8s %-8s %-8s %-8s\n", "Player", "Wins", "Losses", "Draws", "W/L Ratio"
         print "----------------------------------------------------------------"
