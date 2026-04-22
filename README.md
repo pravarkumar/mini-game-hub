@@ -216,12 +216,12 @@ Retry
 <tr>
 
 <td align="center">
-<img src="download.jpeg"/><br>
+<img src="images/player_2.webp"/><br>
 Player 1
 </td>
 
 <td align="center">
-<img src="download.png"/><br>
+<img src="images/Player_.avif"/><br>
 Player 2
 </td>
 
