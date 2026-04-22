@@ -1,5 +1,6 @@
 import pygame
 import sys
+import csv
 import os
 import subprocess
 import numpy as np
@@ -95,10 +96,16 @@ def run_file(filename):
     
     subprocess.run([sys.executable, file_path])
 
-def recordres(winner,loser,gamename):
-    hpath=os.path.join(BASE_DIR,"history.csv")
-    with open(hpath,"a") as file:
-        file.write(f"{winner},{loser},{gamename}\n")
+def recordres(winner, loser, game_name, draw=False):
+    history_path = os.path.join(BASE_DIR, "history.csv")
+    with open(history_path, "a", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            winner,
+            loser,
+            game_name,
+            "draw" if draw else "win",
+        ])
 
 def askpref(game):
     darkscr=pygame.Surface((game.width, game.height), pygame.SRCALPHA)
@@ -199,7 +206,7 @@ def main():
                                         running = False
                                     elif game.isdraw():
                                         winner="draw"
-                                        recordres("draw","draw","tictactoe")
+                                        recordres(game.player1,game.player2,"tictactoe",draw=True)
                                         running = False
                                     else:
                                         game.switch()
@@ -209,7 +216,7 @@ def main():
                             pygame.display.update()#Easy code :)
                     game.drawmarks(screen)
                     sortby=askpref(game)
-                    # leaderboard(sortby)
+                    leaderboard(sortby)
                     a=game.end_screen(screen,winner)
 
                     screen=pygame.display.set_mode((WIDTH,HEIGHT))
@@ -259,7 +266,7 @@ def main():
                                         running = False
                                     elif game.isdraw():
                                         winner="draw"
-                                        recordres("draw","draw","connect4")
+                                        recordres(game.player1,game.player2,"connect4",draw=True)
                                         running = False
                                     else:
                                         game.switch() 
@@ -270,7 +277,7 @@ def main():
                             pygame.display.update()#Easy code :)
                     game.drawmarks(screen)
                     sortby=askpref(game)
-                    # leaderboard(sortby)
+                    leaderboard(sortby)
                     a=game.end_screen(screen,winner)
 
                     screen=pygame.display.set_mode((WIDTH,HEIGHT))
@@ -314,9 +321,9 @@ def main():
                                 winner = player2
                                 loser=player1
                             else:
-                                winner = "draw"
-                                loser="draw"
-                            recordres(winner,loser,"othello")
+                                winner =game.player1
+                                loser=game.player2
+                            recordres(winner,loser,"othello",draw=True)
                             running = False
 
                         for event in pygame.event.get():
@@ -360,7 +367,7 @@ def main():
                             pygame.display.update()#Easy code :)
                     game.drawmarks(screen)
                     sortby=askpref(game)
-                    # leaderboard(sortby)
+                    leaderboard(sortby)
                     a=game.end_screen(screen,winner)
 
                     screen=pygame.display.set_mode((WIDTH,HEIGHT))

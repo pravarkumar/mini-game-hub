@@ -233,4 +233,4 @@ done
 echo -e "]${RESET}"
 
 echo
-python3 game.py "$username" "$username2"
+python game.py "$username" "$username2"
