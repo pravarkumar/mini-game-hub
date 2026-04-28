@@ -24,7 +24,7 @@ clock = pygame.time.Clock()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Background
-image_path = os.path.join(BASE_DIR, "images/menu2.png")
+image_path = os.path.join(BASE_DIR, "images/Menu_final.png")
 background = pygame.image.load(image_path)
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
@@ -39,8 +39,6 @@ if os.path.exists(music_path):
     pygame.mixer.music.play(-1)
 else:
     print("menu_music.mp3 not found!")
-
-
 
 # Base Game Class
 class Game:
@@ -58,15 +56,13 @@ class Game:
 
 # Buttons
 buttons = {
-    "flappy_bird": pygame.Rect(83, 250, 660, 117),
-    "othello": pygame.Rect(85, 370, 655, 117),
-    "connect4": pygame.Rect(84, 495, 655, 115),
-    "tictactoe": pygame.Rect(85, 615, 655, 115),
-    "exit": pygame.Rect(83, 740, 660, 117),
+    "othello": pygame.Rect(74, 288, 678, 126),
+    "connect4": pygame.Rect(74, 420, 678, 128),
+    "tictactoe": pygame.Rect(74, 560, 678, 126),
+    "exit": pygame.Rect(76, 692, 678, 117),
 }
 
 glow_colors = {
-    "flappy_bird": (0, 0, 255),
     "othello": (0, 255, 0),
     "connect4": (255, 255, 0),
     "tictactoe": (255, 100, 0),
@@ -380,12 +376,6 @@ def main():
                         pygame.mixer.music.play(-1)
                     else:
                         print("menu_music.mp3 not found!")
-                        
-
-                elif buttons["flappy_bird"].collidepoint(pos):
-                    pygame.mixer.music.stop()
-                    pygame.display.quit()
-                    run_file("games/flappy_bird.py")
         
         if a=="quit":
             running1=False
