@@ -7,7 +7,10 @@ import numpy as np
 from games.tictactoe import TicTacToe
 from games.othello import Othello
 from games.connect4 import Connect4
-
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import collections
 
 WIDTH = 825
 HEIGHT = 825
@@ -58,7 +61,6 @@ class Game:
 
 # Buttons
 buttons = {
-    "flappy_bird": pygame.Rect(83, 250, 660, 117),
     "othello": pygame.Rect(85, 370, 655, 117),
     "connect4": pygame.Rect(84, 495, 655, 115),
     "tictactoe": pygame.Rect(85, 615, 655, 115),
@@ -66,7 +68,6 @@ buttons = {
 }
 
 glow_colors = {
-    "flappy_bird": (0, 0, 255),
     "othello": (0, 255, 0),
     "connect4": (255, 255, 0),
     "tictactoe": (255, 100, 0),
@@ -146,6 +147,101 @@ def leaderboard(sortby):
     lpath=os.path.join(BASE_DIR, "leaderboard.sh")
     subprocess.run([r"C:\Program Files\Git\bin\bash.exe",lpath,sortby])
 
+def show_charts():
+    history_path = os.path.join(BASE_DIR, "history.csv")
+    if not os.path.exists(history_path):
+        return
+
+    winners = []
+    games_played = []
+
+    with open(history_path, newline="") as f:
+        for row in csv.reader(f):
+            if len(row) < 4:
+                continue
+
+            if row[3] == "win" and row[0] != "draw":
+                winners.append(row[0])
+
+            games_played.append(row[2])
+
+    fig, (ax1, ax2)=plt.subplots(1, 2, figsize=(14, 6))
+    fig.patch.set_facecolor("#1a1a2e")
+
+    #BAR CHART
+    win_counts = collections.Counter(winners).most_common(5)
+
+    
+    names=[]
+    counts=[]
+
+    for name, count in win_counts:
+        names.append(name)
+        counts.append(count)
+
+    ax1.bar(names,counts,
+            color=["#e94560", "#0f3460", "#533483", "#f5a623", "#16213e"],
+            edgecolor="white" )
+
+    ax1.set_facecolor("#16213e")
+    ax1.set_title("Top 5 Players by Wins", color="white", fontsize=22)
+
+    ax1.tick_params(axis="x", colors="white", labelsize=18)
+    ax1.tick_params(axis="y", colors="white", labelsize=18)
+
+    #PIE CHART -
+    game_counts = collections.Counter(games_played)
+
+    
+    ax2.pie(
+            game_counts.values(),
+            labels=game_counts.keys(),
+            autopct="%1.1f%%",
+            colors=["#e94560", "#0f3460", "#533483", "#f5a623"],
+            textprops={"color": "white", "fontsize": 18}
+        )
+
+    ax2.set_title("Most Played Games", color="white", fontsize=22)
+
+    
+
+    plot_path = os.path.join(BASE_DIR, "images/plot.png")
+    plt.savefig(plot_path)
+    plt.close()
+
+    chart_surf = pygame.image.load(plot_path)
+
+    cw, ch = chart_surf.get_size()
+    sw, sh = screen.get_size()
+
+    scale = min(sw / cw, sh / ch)
+    new_w, new_h = int(cw * scale), int(ch * scale)
+
+    chart_surf = pygame.transform.scale(chart_surf, (new_w, new_h))
+
+    x = (sw - new_w) // 2
+    y = (sh - new_h) // 2
+
+    screen.fill((26, 26, 46))
+    screen.blit(chart_surf, (x, y))
+
+    font = pygame.font.SysFont(None, 32)
+    msg = font.render("Press any key to continue", True, (255, 255, 255))
+
+    screen.blit(msg,(screen.get_width() // 2 - msg.get_width() // 2,screen.get_height() - 100))
+
+    pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type in (pygame.KEYDOWN, pygame.MOUSEBUTTONDOWN):
+                return
+    
+
 
 
 def main():
@@ -217,6 +313,7 @@ def main():
                     game.drawmarks(screen)
                     sortby=askpref(game)
                     leaderboard(sortby)
+                    show_charts()
                     a=game.end_screen(screen,winner)
 
                     screen=pygame.display.set_mode((WIDTH,HEIGHT))
@@ -278,6 +375,7 @@ def main():
                     game.drawmarks(screen)
                     sortby=askpref(game)
                     leaderboard(sortby)
+                    show_charts()
                     a=game.end_screen(screen,winner)
 
                     screen=pygame.display.set_mode((WIDTH,HEIGHT))
@@ -368,6 +466,7 @@ def main():
                     game.drawmarks(screen)
                     sortby=askpref(game)
                     leaderboard(sortby)
+                    show_charts()
                     a=game.end_screen(screen,winner)
 
                     screen=pygame.display.set_mode((WIDTH,HEIGHT))
