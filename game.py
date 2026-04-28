@@ -120,8 +120,13 @@ def askpref(game):
                     return "ratio"
 
 def leaderboard(sortby):
+<<<<<<< HEAD
     lpath="leaderboard.sh"
     subprocess.run([r"C:\Program Files\Git\bin\bash.exe",lpath,sortby])
+=======
+    lpath=os.path.join(BASE_DIR, "leaderboard.sh")
+    subprocess.run([r"bash",lpath,sortby])
+>>>>>>> 51288e9 (Made the main.sh much more cooler with colors and stuff keeping concept the same)
 
 def show_charts():
     history_path = "history.csv"

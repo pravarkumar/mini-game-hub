@@ -7,6 +7,7 @@ shanu,loki,othello,win
 t,p,tictactoe,win
 t,p,tictactoe,win
 p,t,tictactoe,win
+<<<<<<< HEAD
 q,t,connect4,win
 t,q,tictactoe,win
 t,q,tictactoe,win
@@ -39,3 +40,6 @@ t,q,tictactoe,win
 t,q,tictactoe,win
 t,q,tictactoe,win
 t,q,tictactoe,win
+=======
+t,y,tictactoe,win
+>>>>>>> 51288e9 (Made the main.sh much more cooler with colors and stuff keeping concept the same)
