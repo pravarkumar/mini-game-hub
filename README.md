@@ -93,20 +93,6 @@ Validation<br>Error handling
 
 ---
 
-## 📁 Project Structure
-<!-- This is how our project is structured -->
-```bash
-Mini-Game-Hub/
-│
-├── main.sh
-├── auth.py
-├── game.py
-├── users.tsv
-└── README.md
-```
-
----
-
 ## ▶️ How to Run
 
 <table align="center">
