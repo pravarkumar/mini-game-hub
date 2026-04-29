@@ -318,4 +318,4 @@ auth_player 2 "$user1" user2
 
 match_intro "$user1" "$user2"
 
-python game.py "$user1" "$user2"
+python3 game.py "$user1" "$user2"

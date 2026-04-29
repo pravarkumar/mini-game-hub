@@ -6,5 +6,7 @@ $(PDF): $(LATEX)
 	pdflatex $<	
 	pdflatex $<
 
-.PHONY clean:
-	rm -f *.aux *.log *.pdf
+
+clean:
+	rm -f *.aux *.log *.out $(PDF)
+.PHONY: clean

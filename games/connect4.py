@@ -53,36 +53,35 @@ class Connect4(Game):
 
     def checkwin(self):
         b = self.board
-        #Horizontal
-        if(np.any( ((b[:,0:-3]==b[:,1:-2]) & (b[:,0:-3] == b[:,2:-1]) & (b[:,0:-3]==b[:,3:]) & (b[:,0:-3]!=0)) )):
-            return True
-        
-        #Vertical
-        if(np.any(  (b[0:-3,:]==b[1:-2,:]) & (b[0:-3,:]==b[2:-1,:]) & (b[0:-3,:]==b[3:,:]) & (b[0:-3,:]!=0))):
-            return True
-        #Diagonals
-        if(np.any(  (b[:-3,:-3]==b[1:-2,1:-2]) & (b[:-3,:-3] == b[2:-1,2:-1]) & (b[:-3,:-3]==b[3:,3:]) & (b[:-3,:-3]!=0))):
-            return True
-        
-        if(np.any((b[3:,3:]==b[2:-1,2:-1]) & (b[3:,3:]==b[1:-2,1:-2]) & (b[3:,3:]==b[:-3,:-3]) & (b[3:,3:]!=0))):
-            return True
-        return False
 
-        
+        # Horizontal
+        if np.any((b[:,0:-3]==b[:,1:-2]) & (b[:,0:-3]==b[:,2:-1]) & (b[:,0:-3]==b[:,3:]) & (b[:,0:-3]!=0)):
+            return True
+
+        # Vertical
+        if np.any((b[0:-3,:]==b[1:-2,:]) & (b[0:-3,:]==b[2:-1,:]) & (b[0:-3,:]==b[3:,:]) & (b[0:-3,:]!=0)):
+            return True
+
+        # Diagonal ↘ (top-left to bottom-right)
+        if np.any((b[:-3,:-3]==b[1:-2,1:-2]) & (b[:-3,:-3]==b[2:-1,2:-1]) & (b[:-3,:-3]==b[3:,3:]) & (b[:-3,:-3]!=0)):
+            return True
+
+        # Diagonal ↗ (bottom-left to top-right)
+        if np.any((b[3:,:-3]==b[2:-1,1:-2]) & (b[3:,:-3]==b[1:-2,2:-1]) & (b[3:,:-3]==b[:-3,3:]) & (b[3:,:-3]!=0)):
+            return True
+
+        return False
 
     def isdraw(self):
         return np.all(self.board != 0)
 
     def end_screen(self, screen, winner):
-        # Simple end screen with Play Again and Menu
         endimage_path="images/win_screen.jpeg"
         backg=pygame.image.load(endimage_path)
         backg=pygame.transform.scale(backg,(825,825))
         
         screen.fill((26, 26, 46))
         font=pygame.font.SysFont("freesans",40)
-        
-
 
         if winner != "draw":
             text = font.render(f"{winner}  HAS WON  THE GAME!", True, (255,255,0))
@@ -90,7 +89,6 @@ class Connect4(Game):
             text = font.render("ITS A DRAW!", True, (255,255,0))
         screen.blit(backg, (0,0))
         
-        # Buttons
         playrect=pygame.Rect(48,420,729,167)
         quitrect=pygame.Rect(49,603,729,193)
 
@@ -98,13 +96,8 @@ class Connect4(Game):
         textbox1=pygame.Rect(50,226,669,144)
         pygame.draw.rect(screen,(20,13,47),textbox1)
         
-        
-        
         text_rect=text.get_rect(center=textbox.center)
-        
         screen.blit(text, text_rect)
-        
-        
         
         pygame.display.update()
         waiting=True
@@ -116,7 +109,6 @@ class Connect4(Game):
                 if event.type==pygame.MOUSEBUTTONDOWN:
                     pos=event.pos
                     if playrect.collidepoint(pos):
-                        
                         return "playagain"
                     elif quitrect.collidepoint(pos):
                         return "quit"

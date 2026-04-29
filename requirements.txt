@@ -1,0 +1,43 @@
+check if installed by this :
+
+Git:
+git --version
+
+Python:
+python3 --version
+
+Pip:
+pip3 --version
+
+Pygame:
+python3 -c "import pygame; print(pygame.__version__)"
+
+Numpy:
+python3 -c "import numpy; print(numpy.__version__)"
+
+Matplotlib:
+python3 -c "import matplotlib; print(matplotlib.__version__)"
+
+gawk:
+gawk --version
+
+bash:
+bash --version
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Skill....

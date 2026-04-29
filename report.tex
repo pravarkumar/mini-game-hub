@@ -411,5 +411,21 @@ end\_screen
 \end{tabular}
 \caption{Methods used in TickTackToe class}
 \end{table}
-
+\newpage
+\section{Leader board workflow :}
+In this section we would be explaining the file leader board.sh which contains the commands to display a table corresponding to each game showing how much wins,losses and wins/losses ratio is there for each player.\\
+\begin{itemize}
+    \item First of all we have defined wins and losses as two 2D arrays which store where the first index is the games and the second holds the players.
+    \item Then through seen array find out all the unique players in the game database.
+    \item Then we iterate over seen and for each player find the wins ,losses and the Win/Losses ratio the Win/Losses ratio is defined by the following ratio:\\\\
+    $ratio = (l == 0) ? w : w/l$\\
+    
+    \item All three parameters are stored int he Data Associate array 
+    \item Then we input the result of the players request and sort wrt that.
+    \item Then the required oclumn of the Data array is extracted and is sorted like:
+    \\\\
+     $asorti(key,idx,"@val\_num\_desc")$
+     \\
+    \item Finally using the idx array we print the data stored in the Data array.
+\end{itemize}
 \end{document}

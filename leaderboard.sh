@@ -13,7 +13,7 @@ RESET="\033[0m"
 echo -e "${GREEN}========== 🏆 LEADERBOARD 🏆 ==========${RESET}"
 echo -e "${YELLOW}Sorted by: $PARAMETER${RESET}"
 echo
-awk -F',' -v sort_by="$PARAMETER" '
+gawk -F',' -v sort_by="$PARAMETER" '
 NR {
     p1=$1
     p2=$2
