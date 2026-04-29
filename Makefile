@@ -1,5 +1,5 @@
-LATEX = mini-game-hub-report.tex
-PDF = mini-game-hub-report.pdf
+LATEX = report.tex
+PDF = report.pdf
 
 all: $(PDF)
 $(PDF): $(LATEX)

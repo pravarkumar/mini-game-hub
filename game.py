@@ -27,7 +27,7 @@ clock = pygame.time.Clock()
 # Base directory
 
 # Background
-image_path = os.path.join(BASE_DIR, "images/Menu_final.png")
+image_path = "images/Menu_final.png"
 background = pygame.image.load(image_path)
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
@@ -134,7 +134,7 @@ def askpref(game):
                     return "ratio"
 
 def leaderboard(sortby):
-    lpath=os.path.join(BASE_DIR, "leaderboard.sh")
+    lpath="leaderboard.sh"
     subprocess.run([r"bash",lpath,sortby])
 
 def show_charts():
@@ -487,7 +487,7 @@ def main():
 
                 elif buttons["othello"].collidepoint(pos):
                     pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "Othello.mp3")
+                    music_path ="sound_effects/Othello.mp3"
                     if os.path.exists(music_path):
                         pygame.mixer.music.load(music_path)
                         pygame.mixer.music.set_volume(0.5)
@@ -567,7 +567,7 @@ def main():
                     screen=pygame.display.set_mode((WIDTH,HEIGHT))
                     pygame.display.set_caption("Mini Game Hub")
                     pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                    music_path = "sound_effects/menu_music.mp3"
                     if os.path.exists(music_path):
                         pygame.mixer.music.load(music_path)
                         pygame.mixer.music.set_volume(0.5)
