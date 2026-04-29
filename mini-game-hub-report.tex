@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{enumitem}
+\usepackage{float}
+\title{Mini-Game-Hub Latex Report}
+\author{Pravar Kumar and Shantanu Patil}
+\date{${29^{th}}$ April 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction :}
+This \LaTeX\ report is a a document providing the insights on the  list of external libraries used and their purpose by us throughout the project. Moreover it will along with including the features across the whole project will also give  an explanation of the code logic for the generic class, each game, the authentication
+system, and the leader board. Even the hurdles we came across shall be discussed along with the external sources used by us. Lastly there would be a section dedicated to future prospects if e were given a course of 10 hr of additional time.
+
+\section*{External libraries used by us :}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{9cm}|}
+\hline
+\textbf{Library} & \textbf{Purpose} \\ 
+\hline
+\texttt{pygame} & Used for GUI creation, animations, user input, and game rendering. \\ 
+\hline
+\texttt{sys} & Used for system-specific operations such as exiting the program. \\ 
+\hline
+\texttt{csv} & Used for reading and writing leaderboard or user data. \\ 
+\hline
+\texttt{os} & Used for file handling and operating system interactions. \\ 
+\hline
+\texttt{subprocess} & Used for executing external programs or processes. \\ 
+\hline
+\texttt{numpy} & Used for numerical operations and array handling. \\ 
+\hline
+\texttt{games.tictactoe} & Imports the Tic Tac Toe game class. \\ 
+\hline
+\texttt{games.othello} & Imports the Othello game class. \\ 
+\hline
+\texttt{games.connect4} & Imports the Connect 4 game class. \\ 
+\hline
+\end{tabular}
+\caption{Libraries Used in the Project + Their purpose}
+\end{table}
+\section*{Hurdles faced and how we overcame them :}
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Hurdles} & \textbf{Solutions} \\ 
+\hline
+
+The level of theory which we had for certain topics did not suffice for the needs of our imagination for the project interface. 
+&
+We looked through numerous sources such as manuals, documentations, and many websites dedicated to those particular topics. \\
+
+\hline
+We were at times overwhelmed by such a large number of files and documents in our GitHub that keeping them in separate folders in an order way became a great hassle .
+
+ & \ We had regular checks on our file system and thus were able to maintain a somewhat balanced file structure which was expected out of us :) . 
+\end{tabular}
+\caption{Hurdles faced during the project and their solutions}
+\end{table}
+
+
+\section*{What would we do differently if we were given additional 10 hours : }
+If we were given additional 10 hours then we would like to perform the follows :
+\begin{itemize}
+    \item \text{Make the project more aesthetic like addign more formatting and better graphics , probably also adding more features to each of the games. }
+    \item \text{One thing which we would really love to do would be to make one more game (we were thinking of making the Flappy Bird game also but due to time constraints and many other unavoidable reasons we couldn't make the Flappy Bird game in time).}
+    \item \text{Another point we would love to do would be to be able to introduce AI in the games as an opponent using certain algorithms wrt each game separately.}
+\end{itemize}
+
+\section*{Bibliography with references and links to external sources :}
+\section*{References}
+
+\begin{enumerate}
+    \item Python Documentation -- https://docs.python.org/3/
+    \item Claude Ai-- Image creation (mainly) and some simple coding difficulties 
+    \item Pygame Learning + Overview -- https://www.youtube.com/watch?v=jO6qQDNa2UY&t=291s
+    \item Pygame Manual -- https://www.pygame.org/docs/
+    \item Overflow.com -- https://www.overleaf.com/learn
+    \item Shell Functions -- https://www.shellscript.sh/functions.html
+    \item GeeksforGeeks Python Tutorials -- https://www.geeksforgeeks.org/python-programming-language/
+\end{enumerate}
+
+\section*{Code Manual for our project :}
+\section{main.sh (The Authentication of players)}
+This is the first file which we made this file is the first page which can be seen as a login to our mini-hub-game.
+Inside of main.sh we first defined different colour and functions which we would use later in the project 
+
+
+\end{document}
+
