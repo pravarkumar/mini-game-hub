@@ -27,9 +27,9 @@ clock = pygame.time.Clock()
 # Base directory
 
 # Background
-image_path="images/menu2.png"
-background=pygame.image.load(image_path)
-background=pygame.transform.scale(background, (WIDTH, HEIGHT))
+image_path = os.path.join(BASE_DIR, "images/Menu_final.png")
+background = pygame.image.load(image_path)
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 player1=sys.argv[1]
 player2=sys.argv[2]
@@ -45,12 +45,26 @@ if os.path.exists(music_path):
 else:
     print("menu_music.mp3 not found!")
 
+# Base Game Class
+class Game:
+    def __init__(self, current_player, player1, player2, row, col):
+        self.player1 = player1
+        self.player2 = player2
+        self.board = np.zeros((row, col))
+        self.current_player = player1
+
+    def switch(self):
+        self.current_player = self.player2 if self.current_player == self.player1 else self.player1
+
+    def check_win(self):
+        raise NotImplementedError("Subclasses must implement this method")
+
 # Buttons
 buttons = {
-    "othello": pygame.Rect(85, 370, 655, 117),
-    "connect4": pygame.Rect(84, 495, 655, 115),
-    "tictactoe": pygame.Rect(85, 615, 655, 115),
-    "exit": pygame.Rect(83, 740, 660, 117),
+    "othello": pygame.Rect(74, 288, 678, 126),
+    "connect4": pygame.Rect(74, 420, 678, 128),
+    "tictactoe": pygame.Rect(74, 560, 678, 126),
+    "exit": pygame.Rect(76, 692, 678, 117),
 }
 
 glow_colors = {
@@ -120,8 +134,8 @@ def askpref(game):
                     return "ratio"
 
 def leaderboard(sortby):
-    lpath="leaderboard.sh"
-    subprocess.run([r"C:\Program Files\Git\bin\bash.exe",lpath,sortby])
+    lpath=os.path.join(BASE_DIR, "leaderboard.sh")
+    subprocess.run([r"bash",lpath,sortby])
 
 def show_charts():
     history_path = "history.csv"
@@ -472,7 +486,94 @@ def main():
                     runconnect4()
 
                 elif buttons["othello"].collidepoint(pos):
-                    runothello()
+                    pygame.mixer.music.stop()
+                    music_path = os.path.join(BASE_DIR, "sound_effects", "Othello.mp3")
+                    if os.path.exists(music_path):
+                        pygame.mixer.music.load(music_path)
+                        pygame.mixer.music.set_volume(0.5)
+                        pygame.mixer.music.play(-1)
+                    else:
+                        print("Othello.mp3 not found!")
+
+                    game = Othello(player1,player2)
+                    pygame.display.set_caption("Othello ⚫⚪ :)")
+                    running = True
+
+                    while running:
+                        
+
+        #  CHECK GAME END (both players stuck)
+                        if (not game.valid_possible(game.player1) and not game.valid_possible(game.player2)):
+
+                            black = np.sum(game.board == 1)
+                            white = np.sum(game.board == 2)
+
+                            if black > white:
+                                winner = player1
+                                loser=player2
+                            elif white > black:
+                                winner = player2
+                                loser=player1
+                            else:
+                                winner =game.player1
+                                loser=game.player2
+                            recordres(winner,loser,"othello",draw=True)
+                            running = False
+
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                pygame.quit()
+                                sys.exit()
+
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                x, y = event.pos
+                                row = y // game.cellsize
+                                col = x // game.cellsize
+
+                                if game.makemove(row, col):
+
+                                    game.switch()
+
+                                    #  skip turn logic
+                                    if not game.valid_possible(game.current_player):
+                                        game.switch()
+
+                                        # check again → game over
+                                        if not game.valid_possible(game.current_player):
+
+                                            black = np.sum(game.board == 1)
+                                            white = np.sum(game.board == 2)
+
+                                            if black > white:
+                                                winner = player1
+                                                loser = player2
+                                            elif white > black:
+                                                winner = player2
+                                                loser=player1
+                                            else:
+                                                winner = "draw"
+                                                loser="draw"
+                                            recordres(winner,loser,"othello")
+                                            running = False
+                        if running:
+                            game.drawgrid(screen)
+                            game.drawmarks(screen)
+                            pygame.display.update()#Easy code :)
+                    game.drawmarks(screen)
+                    sortby=askpref(game)
+                    leaderboard(sortby)
+                    a=game.end_screen(screen,winner)
+
+                    screen=pygame.display.set_mode((WIDTH,HEIGHT))
+                    pygame.display.set_caption("Mini Game Hub")
+                    pygame.mixer.music.stop()
+                    music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+                    if os.path.exists(music_path):
+                        pygame.mixer.music.load(music_path)
+                        pygame.mixer.music.set_volume(0.5)
+                        pygame.mixer.music.play(-1)
+                    else:
+                        print("menu_music.mp3 not found!")
         
         if a=="quit":
             running1=False
