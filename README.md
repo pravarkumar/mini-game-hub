@@ -49,7 +49,7 @@
 </td>
 
 <td align="center" width="20%">
-<img src="control-flow.jpg"/><br>
+<img src="images/control-flow.jpg"/><br>
 <b>Control Flow</b>
 </td>
 
