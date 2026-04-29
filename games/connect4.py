@@ -55,20 +55,22 @@ class Connect4:
 
     def checkwin(self):
         b = self.board
-        for r in range(7):
-            for c in range(7):
-                if b[r][c] == 0:
-                    continue
-                p = b[r][c]
-                if c + 3 < 7 and all(b[r][c+i] == p for i in range(4)):
-                    return True
-                if r + 3 < 7 and all(b[r+i][c] == p for i in range(4)):
-                    return True
-                if r + 3 < 7 and c + 3 < 7 and all(b[r+i][c+i] == p for i in range(4)):
-                    return True
-                if r + 3 < 7 and c - 3 >= 0 and all(b[r+i][c-i] == p for i in range(4)):
-                    return True
+        #Horizontal
+        if(np.any( ((b[:,0:-3]==b[:,1:-2]) & (b[:,0:-3] == b[:,2:-1]) & (b[:,0:-3]==b[:,3:]) & (b[:,0:-3]!=0)) )):
+            return True
+        
+        #Vertical
+        if(np.any(  (b[0:-3,:]==b[1:-2,:]) & (b[0:-3,:]==b[2:-1,:]) & (b[0:-3,:]==b[3:,:]) & (b[0:-3,:]!=0))):
+            return True
+        #Diagonals
+        if(np.any(  (b[:-3,:-3]==b[1:-2,1:-2]) & (b[:-3,:-3] == b[2:-1,2:-1]) & (b[:-3,:-3]==b[3:,3:]) & (b[:-3,:-3]!=0))):
+            return True
+        
+        if(np.any((b[3:,3:]==b[2:-1,2:-1]) & (b[3:,3:]==b[1:-2,1:-2]) & (b[3:,3:]==b[:-3,:-3]) & (b[3:,3:]!=0))):
+            return True
         return False
+
+        
 
     def isdraw(self):
         return np.all(self.board != 0)

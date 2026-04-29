@@ -7,3 +7,5 @@ shanu,loki,othello,win
 t,p,tictactoe,win
 t,p,tictactoe,win
 p,t,tictactoe,win
+t,q,tictactoe,win
+t,q,othello,win
