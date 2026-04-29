@@ -7,6 +7,7 @@ import numpy as np
 from games.tictactoe import TicTacToe
 from games.othello import Othello
 from games.connect4 import Connect4
+from games.base import Game
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -24,40 +25,25 @@ pygame.display.set_caption("Mini Game Hub")
 clock = pygame.time.Clock()
 
 # Base directory
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Background
-image_path = os.path.join(BASE_DIR, "images/menu2.png")
-background = pygame.image.load(image_path)
-background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+image_path="images/menu2.png"
+background=pygame.image.load(image_path)
+background=pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 player1=sys.argv[1]
 player2=sys.argv[2]
 
+a="playagain"
+
 # Music
-music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
+music_path = "sound_effects/menu_music.mp3"
 if os.path.exists(music_path):
     pygame.mixer.music.load(music_path)
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
 else:
     print("menu_music.mp3 not found!")
-
-
-
-# Base Game Class
-class Game:
-    def __init__(self, current_player, player1, player2, row, col):
-        self.player1 = player1
-        self.player2 = player2
-        self.board = np.zeros((row, col))
-        self.current_player = player1
-
-    def switch(self):
-        self.current_player = self.player2 if self.current_player == self.player1 else self.player1
-
-    def check_win(self):
-        raise NotImplementedError("Subclasses must implement this method")
 
 # Buttons
 buttons = {
@@ -87,18 +73,8 @@ def draw_glow(screen, rect, color):
         )
     screen.blit(glow_surface, rect.topleft)
 
-
-def run_file(filename):
-    file_path = os.path.join(BASE_DIR, filename)
-    if not os.path.exists(file_path):
-        print(f"{filename} not found!")
-        return
-
-    
-    subprocess.run([sys.executable, file_path])
-
 def recordres(winner, loser, game_name, draw=False):
-    history_path = os.path.join(BASE_DIR, "history.csv")
+    history_path="history.csv"
     with open(history_path, "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([
@@ -144,11 +120,11 @@ def askpref(game):
                     return "ratio"
 
 def leaderboard(sortby):
-    lpath=os.path.join(BASE_DIR, "leaderboard.sh")
+    lpath="leaderboard.sh"
     subprocess.run([r"C:\Program Files\Git\bin\bash.exe",lpath,sortby])
 
 def show_charts():
-    history_path = os.path.join(BASE_DIR, "history.csv")
+    history_path = "history.csv"
     if not os.path.exists(history_path):
         return
 
@@ -202,10 +178,7 @@ def show_charts():
         )
 
     ax2.set_title("Most Played Games", color="white", fontsize=22)
-
-    
-
-    plot_path = os.path.join(BASE_DIR, "images/plot.png")
+    plot_path="images/plot.png"
     plt.savefig(plot_path)
     plt.close()
 
@@ -241,11 +214,236 @@ def show_charts():
             if event.type in (pygame.KEYDOWN, pygame.MOUSEBUTTONDOWN):
                 return
     
+def runothello():
+    global a
+    global screen
+    pygame.mixer.music.stop()
+    music_path = "sound_effects/Othello.mp3"
+    if os.path.exists(music_path):
+        pygame.mixer.music.load(music_path)
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+    else:
+        print("Othello.mp3 not found!")
+
+    game = Othello(player1,player2)
+    pygame.display.set_caption("Othello ⚫⚪ :)")
+    running = True
+
+    while running:
+        
+
+#  CHECK GAME END (both players stuck)
+        if (not game.valid_possible(game.player1) and not game.valid_possible(game.player2)):
+
+            black = np.sum(game.board == 1)
+            white = np.sum(game.board == 2)
+
+            if black > white:
+                winner = player1
+                loser=player2
+            elif white > black:
+                winner = player2
+                loser=player1
+            else:
+                winner =game.player1
+                loser=game.player2
+            recordres(winner,loser,"othello",draw=True)
+            running = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                row = y // game.cellsize
+                col = x // game.cellsize
+
+                if game.makemove(row, col):
+
+                    game.switch()
+
+                    #  skip turn logic
+                    if not game.valid_possible(game.current_player):
+                        game.switch()
+
+                        # check again → game over
+                        if not game.valid_possible(game.current_player):
+
+                            black = np.sum(game.board == 1)
+                            white = np.sum(game.board == 2)
+
+                            if black > white:
+                                winner = player1
+                                loser = player2
+                            elif white > black:
+                                winner = player2
+                                loser=player1
+                            else:
+                                winner = "draw"
+                                loser="draw"
+                            recordres(winner,loser,"othello")
+                            running = False
+        if running:
+            game.drawgrid(screen)
+            game.drawmarks(screen)
+            pygame.display.update()#Easy code :)
+    game.drawmarks(screen)
+    sortby=askpref(game)
+    leaderboard(sortby)
+    show_charts()
+    a=game.end_screen(screen,winner)
+
+    screen=pygame.display.set_mode((WIDTH,HEIGHT))
+    pygame.display.set_caption("Mini Game Hub")
+    pygame.mixer.music.stop()
+    music_path = "sound_effects/menu_music.mp3"
+    if os.path.exists(music_path):
+        pygame.mixer.music.load(music_path)
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+    else:
+        print("menu_music.mp3 not found!")
+
+
+
+
+def runtictactoe():
+    global a
+    global screen
+    game=TicTacToe(player1,player2)#We call the constructor of the class TicTacToe like c=int() is also valid it means that c will be of class int and have the initial value = 0 like c=1 is same as c=int(1)
+    screen=pygame.display.set_mode((game.width,game.height))
+    pygame.display.set_caption("Just a quiet game of Tic Tac Toe ⭕❌🎮")# This text will come at the top of the screen of the game 
+    pygame.mixer.music.stop()
+    music_path ="sound_effects/TicTacToe.mp3"
+    if os.path.exists(music_path):
+        pygame.mixer.music.load(music_path)
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+    else:
+        print("TicTacToe.mp3 not found!")
+    running=True#This is the status of this particular game 
+
+    while running:
+            
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                row = y//game.cellsize
+                col = x//game.cellsize
+
+                
+                if game.makemove(row, col):
+                    if game.checkwin(game.current_player):
+                        winner = game.current_player  # current player just won
+                        loser = game.player1 if game.current_player==game.player2 else game.player2
+                        recordres(winner,loser,"tictactoe")
+                        running = False
+                    elif game.isdraw():
+                        winner="draw"
+                        recordres(game.player1,game.player2,"tictactoe",draw=True)
+                        running = False
+                    else:
+                        game.switch()
+        if running:
+            game.drawgrid(screen)
+            game.drawmarks(screen)
+            pygame.display.update()#Easy code :)
+    game.drawmarks(screen)
+    sortby=askpref(game)
+    leaderboard(sortby)
+    show_charts()
+    a=game.end_screen(screen,winner)
+
+    screen=pygame.display.set_mode((WIDTH,HEIGHT))
+    pygame.display.set_caption("Mini Game Hub")
+    pygame.mixer.music.stop()
+    music_path = "sound_effects/menu_music.mp3"
+    if os.path.exists(music_path):
+        pygame.mixer.music.load(music_path)
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+    else:
+        print("menu_music.mp3 not found!")
+
+
+
+def runconnect4():
+    global a
+    global screen
+    pygame.mixer.music.stop()
+    music_path="sound_effects/Connect4.mp3"
+    if os.path.exists(music_path):
+        pygame.mixer.music.load(music_path)
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+    else:
+        print("Connect4.mp3 not found!")
+
+    game = Connect4(player1,player2)
+    pygame.display.set_caption("Keeping it simple—connect 4 🔴🔵")
+    running=True
+
+    while running:
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                row = y // game.cellsize
+                col = x // game.cellsize
+
+                if game.makemove(row, col):
+                    if game.checkwin():
+                        winner = game.current_player  # current player just won
+                        loser=game.player1 if game.current_player==game.player2 else game.player2
+                        recordres(winner,loser,"connect4")
+                        running = False
+                    elif game.isdraw():
+                        winner="draw"
+                        recordres(game.player1,game.player2,"connect4",draw=True)
+                        running = False
+                    else:
+                        game.switch() 
+            
+        if running:
+            game.drawgrid(screen)
+            game.drawmarks(screen)
+            pygame.display.update()#Easy code :)
+    game.drawmarks(screen)
+    sortby=askpref(game)
+    leaderboard(sortby)
+    show_charts()
+    a=game.end_screen(screen,winner)
+
+    screen=pygame.display.set_mode((WIDTH,HEIGHT))
+    pygame.display.set_caption("Mini Game Hub")
+    pygame.mixer.music.stop()
+    music_path = "sound_effects/menu_music.mp3"
+    if os.path.exists(music_path):
+        pygame.mixer.music.load(music_path)
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(-1)
+    else:
+        print("menu_music.mp3 not found!")
+
+
+
 
 
 
 def main():
     global screen
+    global a
     running1=True #tells the status of this running process 
     while running1:# if true then runs 
         a="playagain"# name anything like will not chnage if no clicks of quit or play_again
@@ -268,226 +466,17 @@ def main():
                     sys.exit()
 
                 elif buttons["tictactoe"].collidepoint(pos):
-                    game=TicTacToe(player1,player2)#We call the constructor of the class TicTacToe like c=int() is also valid it means that c will be of class int and have the initial value = 0 like c=1 is same as c=int(1)
-                    screen=pygame.display.set_mode((game.width,game.height))
-                    pygame.display.set_caption("Just a quiet game of Tic Tac Toe ⭕❌🎮")# This text will come at the top of the screen of the game 
-                    pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "TicTacToe.mp3")
-                    if os.path.exists(music_path):
-                        pygame.mixer.music.load(music_path)
-                        pygame.mixer.music.set_volume(0.5)
-                        pygame.mixer.music.play(-1)
-                    else:
-                        print("TicTacToe.mp3 not found!")
-                    running=True#This is the status of this particular game 
-
-                    while running:
-                         
-                        for event in pygame.event.get():
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                sys.exit()
-
-                            if event.type==pygame.MOUSEBUTTONDOWN:
-                                x, y = event.pos
-                                row = y//game.cellsize
-                                col = x//game.cellsize
-
-                                
-                                if game.makemove(row, col):
-                                    if game.checkwin(game.current_player):
-                                        winner = game.current_player  # current player just won
-                                        loser = game.player1 if game.current_player==game.player2 else game.player2
-                                        recordres(winner,loser,"tictactoe")
-                                        running = False
-                                    elif game.isdraw():
-                                        winner="draw"
-                                        recordres(game.player1,game.player2,"tictactoe",draw=True)
-                                        running = False
-                                    else:
-                                        game.switch()
-                        if running:
-                            game.drawgrid(screen)
-                            game.drawmarks(screen)
-                            pygame.display.update()#Easy code :)
-                    game.drawmarks(screen)
-                    sortby=askpref(game)
-                    leaderboard(sortby)
-                    show_charts()
-                    a=game.end_screen(screen,winner)
-
-                    screen=pygame.display.set_mode((WIDTH,HEIGHT))
-                    pygame.display.set_caption("Mini Game Hub")
-                    pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
-                    if os.path.exists(music_path):
-                        pygame.mixer.music.load(music_path)
-                        pygame.mixer.music.set_volume(0.5)
-                        pygame.mixer.music.play(-1)
-                    else:
-                        print("menu_music.mp3 not found!")
-
-                        
+                    runtictactoe()
 
                 elif buttons["connect4"].collidepoint(pos):
-                    pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "Connect4.mp3")
-                    if os.path.exists(music_path):
-                        pygame.mixer.music.load(music_path)
-                        pygame.mixer.music.set_volume(0.5)
-                        pygame.mixer.music.play(-1)
-                    else:
-                        print("Connect4.mp3 not found!")
-
-                    game = Connect4(player1,player2)
-                    pygame.display.set_caption("Keeping it simple—connect 4 🔴🔵")
-                    running=True
-
-                    while running:
-                        
-                        for event in pygame.event.get():
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                sys.exit()
-
-                            if event.type == pygame.MOUSEBUTTONDOWN:
-                                x, y = event.pos
-                                row = y // game.cellsize
-                                col = x // game.cellsize
-
-                                if game.makemove(row, col):
-                                    if game.checkwin():
-                                        winner = game.current_player  # current player just won
-                                        loser=game.player1 if game.current_player==game.player2 else game.player2
-                                        recordres(winner,loser,"connect4")
-                                        running = False
-                                    elif game.isdraw():
-                                        winner="draw"
-                                        recordres(game.player1,game.player2,"connect4",draw=True)
-                                        running = False
-                                    else:
-                                        game.switch() 
-                            
-                        if running:
-                            game.drawgrid(screen)
-                            game.drawmarks(screen)
-                            pygame.display.update()#Easy code :)
-                    game.drawmarks(screen)
-                    sortby=askpref(game)
-                    leaderboard(sortby)
-                    show_charts()
-                    a=game.end_screen(screen,winner)
-
-                    screen=pygame.display.set_mode((WIDTH,HEIGHT))
-                    pygame.display.set_caption("Mini Game Hub")
-                    pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
-                    if os.path.exists(music_path):
-                        pygame.mixer.music.load(music_path)
-                        pygame.mixer.music.set_volume(0.5)
-                        pygame.mixer.music.play(-1)
-                    else:
-                        print("menu_music.mp3 not found!")
+                    runconnect4()
 
                 elif buttons["othello"].collidepoint(pos):
-                    pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "Othello.mp3")
-                    if os.path.exists(music_path):
-                        pygame.mixer.music.load(music_path)
-                        pygame.mixer.music.set_volume(0.5)
-                        pygame.mixer.music.play(-1)
-                    else:
-                        print("Othello.mp3 not found!")
-
-                    game = Othello(player1,player2)
-                    pygame.display.set_caption("Othello ⚫⚪ :)")
-                    running = True
-
-                    while running:
-                        
-
-        #  CHECK GAME END (both players stuck)
-                        if (not game.valid_possible(game.player1) and not game.valid_possible(game.player2)):
-
-                            black = np.sum(game.board == 1)
-                            white = np.sum(game.board == 2)
-
-                            if black > white:
-                                winner = player1
-                                loser=player2
-                            elif white > black:
-                                winner = player2
-                                loser=player1
-                            else:
-                                winner =game.player1
-                                loser=game.player2
-                            recordres(winner,loser,"othello",draw=True)
-                            running = False
-
-                        for event in pygame.event.get():
-                            if event.type == pygame.QUIT:
-                                pygame.quit()
-                                sys.exit()
-
-                            if event.type == pygame.MOUSEBUTTONDOWN:
-                                x, y = event.pos
-                                row = y // game.cellsize
-                                col = x // game.cellsize
-
-                                if game.makemove(row, col):
-
-                                    game.switch()
-
-                                    #  skip turn logic
-                                    if not game.valid_possible(game.current_player):
-                                        game.switch()
-
-                                        # check again → game over
-                                        if not game.valid_possible(game.current_player):
-
-                                            black = np.sum(game.board == 1)
-                                            white = np.sum(game.board == 2)
-
-                                            if black > white:
-                                                winner = player1
-                                                loser = player2
-                                            elif white > black:
-                                                winner = player2
-                                                loser=player1
-                                            else:
-                                                winner = "draw"
-                                                loser="draw"
-                                            recordres(winner,loser,"othello")
-                                            running = False
-                        if running:
-                            game.drawgrid(screen)
-                            game.drawmarks(screen)
-                            pygame.display.update()#Easy code :)
-                    game.drawmarks(screen)
-                    sortby=askpref(game)
-                    leaderboard(sortby)
-                    show_charts()
-                    a=game.end_screen(screen,winner)
-
-                    screen=pygame.display.set_mode((WIDTH,HEIGHT))
-                    pygame.display.set_caption("Mini Game Hub")
-                    pygame.mixer.music.stop()
-                    music_path = os.path.join(BASE_DIR, "sound_effects", "menu_music.mp3")
-                    if os.path.exists(music_path):
-                        pygame.mixer.music.load(music_path)
-                        pygame.mixer.music.set_volume(0.5)
-                        pygame.mixer.music.play(-1)
-                    else:
-                        print("menu_music.mp3 not found!")
-                        
-
-                elif buttons["flappy_bird"].collidepoint(pos):
-                    pygame.mixer.music.stop()
-                    pygame.display.quit()
-                    run_file("games/flappy_bird.py")
+                    runothello()
         
         if a=="quit":
             running1=False
+        
 
         for name, rect in buttons.items():
             if rect.collidepoint(mouse_pos):

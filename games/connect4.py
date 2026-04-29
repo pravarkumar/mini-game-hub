@@ -1,12 +1,12 @@
 import pygame
 import numpy as np
 import sys
-
+from games.base import Game
 WIDTH = 825
 HEIGHT = 825
 
 
-class Connect4:
+class Connect4(Game):
     def __init__(self,player1,player2):
         self.bgcolor = (255, 237, 41)
         self.linecolor = (0, 0, 0)
@@ -20,8 +20,6 @@ class Connect4:
         self.player1=player1
         self.player2=player2
 
-    def switch(self):
-        self.current_player = self.player2 if self.current_player == self.player1 else self.player1
 
     def drawgrid(self, screen):
         screen.fill(self.bgcolor)
@@ -74,22 +72,38 @@ class Connect4:
         return np.all(self.board != 0)
 
     def end_screen(self, screen, winner):
-        screen.fill((50,50,50))
-        font=pygame.font.SysFont(None,50)
+        # Simple end screen with Play Again and Menu
+        endimage_path="images/win_screen.jpeg"
+        backg=pygame.image.load(endimage_path)
+        backg=pygame.transform.scale(backg,(825,825))
+        
+        screen.fill((26, 26, 46))
+        font=pygame.font.SysFont("freesans",40)
+        
+
+
         if winner != "draw":
-            text = font.render(f"{winner} Wins!", True, (255,255,255))
+            text = font.render(f"{winner}  HAS WON  THE GAME!", True, (255,255,0))
         else:
-            text = font.render("Draw!", True, (255,255,255))
-        screen.blit(text, (150,150))
+            text = font.render("ITS A DRAW!", True, (255,255,0))
+        screen.blit(backg, (0,0))
+        
         # Buttons
-        playrect = pygame.Rect(100,300,180,60)
-        menurect = pygame.Rect(320,300,180,60)
-        pygame.draw.rect(screen,(0,200,0),playrect)
-        pygame.draw.rect(screen,(200,0,0),menurect)
-        playtext = font.render("Play Again", True,(255,255,255))
-        menutext = font.render("Quit", True,(255,255,255))
-        screen.blit(playtext,(110,310))
-        screen.blit(menutext,(330,310))
+        playrect=pygame.Rect(48,420,729,167)
+        quitrect=pygame.Rect(49,603,729,193)
+
+        textbox=pygame.Rect(50,226,719,172)
+        textbox1=pygame.Rect(50,226,669,144)
+        pygame.draw.rect(screen,(20,13,47),textbox1)
+        
+        
+        
+        text_rect=text.get_rect(center=textbox.center)
+        
+        screen.blit(text, text_rect)
+        
+        
+        
         pygame.display.update()
         waiting=True
         while waiting:
@@ -102,5 +116,5 @@ class Connect4:
                     if playrect.collidepoint(pos):
                         
                         return "playagain"
-                    elif menurect.collidepoint(pos):
+                    elif quitrect.collidepoint(pos):
                         return "quit"
