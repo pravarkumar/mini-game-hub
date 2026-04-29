@@ -13,10 +13,53 @@
 \section*{Introduction }
 This \LaTeX\ report is a a document providing the insights on the  list of external libraries used and their purpose by us throughout the project. Moreover it will along with including the features across the whole project will also give  an explanation of the code logic for the generic class, each game, the authentication
 system, and the leader board. Even the hurdles we came across shall be discussed along with the external sources used by us. Lastly there would be a section dedicated to future prospects if e were given a course of 10 hr of additional time.
+\section*{How to install and setup :}
+\begin{enumerate}
+    \item Install git:
+    \begin{itemize}
+        \item \textbf{Mac:} \texttt{brew install git}
+        \item \textbf{Linux:} \texttt{sudo apt update} and then \texttt{sudo apt install git}
+        \item \textbf{Windows:} Go to the official Git website: https://git-scm.com, download it and run the .exe file
+    \end{itemize}
 
+    \item Install Python:
+    \begin{itemize}
+        \item \textbf{Mac:} \texttt{brew install python}
+        \item \textbf{Linux:} \texttt{sudo apt update} and then \texttt{sudo apt install python3 python3-pip}
+        \item \textbf{Windows:} Go to https://python.org and install the Python 3 installer
+    \end{itemize}
+
+    \item Install Python libraries:
+    \begin{itemize}
+        \item Run: \texttt{pip install -r requirements.txt}
+    \end{itemize}
+
+    \item Setting up Bash:
+    \begin{itemize}
+        \item \textbf{Mac and Linux:} Bash is already available by default
+        \item \textbf{Windows:} Use Git Bash (installed with Git in Step 1)
+        \begin{itemize}
+            \item Search for \textbf{Git Bash} in the Start menu and open it, or
+            \item In VSCode: click the dropdown arrow (v) next to + in the terminal panel and select \textbf{Git Bash}
+        \end{itemize}
+    \end{itemize}
+
+    \item Install gawk:
+    \begin{itemize}
+        \item \textbf{Mac:} \texttt{brew install gawk}
+        \item \textbf{Linux:} \texttt{sudo apt update} and then \texttt{sudo apt install gawk}
+        \item \textbf{Windows:} gawk is included with Git for Windows, so no extra installation needed
+    \end{itemize}
+
+
+    \item Type \texttt{git clone https://github.com/pravarkumar/mini-game-hub.git}
+    \item Type \texttt{cd mini-game-hub}
+    \item Type \texttt{bash main.sh}
+     \item Finally most important part : Enjoy your game :)
+\end{enumerate}
 \section*{External libraries used by us }
 The following are the set of external libraries used by us along with their use. They were used throughout the project though mainly in our game.py i.e. the menu file as we like to call it :
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|p{9cm}|}
 \hline
@@ -41,6 +84,8 @@ The following are the set of external libraries used by us along with their use.
 \texttt{games.connect4} & Imports the Connect 4 game class. \\ 
 \hline
 \texttt{matplotlib} & Helps us visualize the data and plot the graphs from the data \\ 
+\hline
+\texttt{collections} & Helps in easier torage of data as an associative array \\ 
 \hline
 \end{tabular}
 \caption{Libraries Used in the Project + Their purpose}
@@ -77,7 +122,7 @@ We used up a lot of time in introducing the music option in our project. Our ini
 \caption{Hurdles faced during the project and their solutions}
 \end{table}
 
-
+\newpage
 \section*{What would we do differently if we were given additional 10 hours  }
 If we were given additional 10 hours then we would like to perform the follows :
 \begin{itemize}
@@ -428,4 +473,5 @@ In this section we would be explaining the file leader board.sh which contains t
      \\
     \item Finally using the idx array we print the data stored in the Data array.
 \end{itemize}
+
 \end{document}
