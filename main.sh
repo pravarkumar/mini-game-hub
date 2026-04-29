@@ -201,7 +201,7 @@ auth_player() {
 
         done
 
-        # ── Login or Register ──
+        #  Login or Register
         if registered "$username_input"; then
             divider "$WHITE"
             info "Account found. Enter your password."
@@ -301,7 +301,7 @@ match_intro() {
     done
 
     echo
-    center_text "${WHITE}${BOLD}▓▓▓  L A U N C H I N G   G A M E  ▓▓▓${RESET}"
+    center_text "${WHITE}${BOLD}▓▓▓▓▓▓▓▓▓▓▓▓  L A U N C H I N G   G A M E  ▓▓▓▓▓▓▓▓▓▓▓▓  ${RESET}"
     echo
     sleep 0.5
 }
